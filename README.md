@@ -1,8 +1,52 @@
-# China RSEI Paper Draft
+# China 30 m Annual Leaf-On Daytime LST Data Descriptor
 
-- Main draft: [latest/main.pdf](latest/main.pdf)
-- Supplementary: [latest/supplementary.pdf](latest/supplementary.pdf)
+This repository contains the current manuscript draft for the dataset:
 
-## 摘要
+**A 25-year record of annual 30 m daytime land surface temperature composites during the leaf-on season across China**
 
-长期、连续且跨年可比的生态环境质量记录是评估区域生态变化、生态恢复工程和城市化影响的基础。遥感生态指数（RSEI）通过整合绿度、湿度、干度和热度，为大范围生态环境质量监测提供了简洁框架；但在全国尺度构建 30 m 年度 RSEI 时，热度分量的跨传感器一致性和长期可比性仍是主要限制。本文基于 2000--2024 年中国年度无缝叶盛期 Landsat 合成产品、MODIS Terra 日间 LST、地形因子和水体掩膜，构建年度 30 m 地表温度与 RSEI 记录。我们首先利用随机森林生成 30 m LST 基线，再通过 MODIS 尺度平滑残差调整提高长期热环境背景一致性，并使用统一全局 PCA 与 P2--P98 稳健缩放构建跨年可比 RSEI。结果显示，残差调整后 LST 与 MODIS 的全国尺度 RMSE 由 2.10$^\circ$C 降至 1.41$^\circ$C，同时在典型区域保留 30 m 空间纹理。2000--2024 年全国平均 RSEI 从 0.499 增至 0.578，Theil--Sen 斜率为每十年 0.0308，显著增加面积占 74.58\%。华北-黄土高原区和东北地区改善最强，青藏高原和西北干旱区改善相对较弱。该年度 RSEI 记录为理解中国 21 世纪以来生态环境质量变化提供了连续、高分辨率和跨传感器一致的遥感证据。
+The record covers 2000–2024 and contains 25 annual composites, each organized into 91 regular 4° tiles. The current manuscript is prepared as a Chinese-language review draft for a *Scientific Data* Data Descriptor.
+
+本仓库保存中国2000–2024年30 m叶盛期日间地表温度年度复合数据集论文的当前审阅稿，包括LaTeX正文、参考文献、9张正文图和已编译PDF。
+
+## Current draft
+
+- [Compiled manuscript PDF](manuscript/main.pdf)
+- [LaTeX source](manuscript/main.tex)
+- [Bibliography](manuscript/references.bib)
+- [Main figures](figures/)
+
+## Authors
+
+- Erzheng Liang, The University of Hong Kong
+- Luoma Wan, The University of Hong Kong
+- Yaotong Cai, Sun Yat-sen University
+- Ziheng Zhu, Fudan University
+
+## Build
+
+The manuscript uses XeLaTeX and BibTeX:
+
+```bash
+bash compile.sh
+```
+
+or
+
+```bash
+cd manuscript
+latexmk -xelatex -bibtex -interaction=nonstopmode -halt-on-error main.tex
+```
+
+## Data access
+
+- Google Earth Engine collection: `projects/ee-liangerzheng377/assets/China_30m_RA_LST_2000_2024_v1`
+- Interactive preview: <https://liangerzheng377.users.earthengine.app/view/ralstexplorerv1>
+- The complete GeoTIFF archive and quality records are being curated in ScienceDB. The permanent DOI will be added after repository review.
+
+## Repository scope
+
+This repository contains the manuscript and publication figures only. The 30 m raster dataset, validation source data, credentials, server configuration, and intermediate processing files are intentionally excluded.
+
+## Contact
+
+Erzheng Liang: <u3665916@connect.hku.hk>
