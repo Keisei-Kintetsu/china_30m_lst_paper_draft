@@ -1,0 +1,11 @@
+Source screening & Scan 165 XLSX workbooks; retain the 160 files with usable timestamps and IRT variables; preserve source-level audit status, duplicate-file evidence, and station-lineage decisions. \\
+Time basis & Interpret station timestamps as China Standard Time and convert to local mean solar time using station longitude. \\
+Nominal overpass & Use 10:30 local mean solar time with a +/-30 min primary window; +/-60 and +/-90 min are sensitivity tests. \\
+IRT consensus & Average IRT-1 and IRT-2 when both are valid; reject paired observations differing by more than 5 degrees C; retain a single valid sensor when only one is available. \\
+Daily aggregation & Take the median of valid observations within each station-day and overpass window. \\
+Clear-sky protocol & Use downward shortwave radiation to calculate a clear-sky index; K >= 0.65 is primary, with all-sky and K >= 0.60 alternatives. \\
+Eight-day alignment & Assign daily values to MOD11A2 nominal eight-day bins whose start DOY is 150-300; average valid daily values within each bin. \\
+Annual composite & Take the median of qualified eight-day means and require at least eight valid bins per station-year. \\
+Ground-reference QC & Apply the paired-IRT consistency criterion to 145 candidate station-years and retain 131 records across all 23 sites. Exclude a station-year when its median daily paired-IRT absolute difference exceeds 5 degrees C; product values and residuals are not used. \\
+Product extraction & Extract the colocated ChinaTherm30 center pixel and median neighborhoods of 3x3, 5x5, 9x9, and 33x33 pixels. \\
+Metrics and uncertainty & Report Pearson r, RMSE, MAE, bias, site-stratified results, and 2,000-replicate site-cluster bootstrap intervals. \\

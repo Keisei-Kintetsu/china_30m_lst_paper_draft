@@ -1,0 +1,28 @@
+site_number,station_id,station,station_zh,network,year_to_search,gap_type,reported_duration_source,search_terms,interpretation
+3,huangcaogou,Huangcaogou,黄草沟,Heihe,2015,extension_candidate,June 2013-Apr. 2015,黄草沟 | Huangcaogou | Huangcaogou AWS | 2015 自动气象站,Search candidate; availability is not assumed
+5,arou,Arou,阿柔,Heihe,2008,historical_gap,June 2008-present,阿柔 | Arou | Arou AWS | 2008 自动气象站,Search candidate; availability is not assumed
+5,arou,Arou,阿柔,Heihe,2009,historical_gap,June 2008-present,阿柔 | Arou | Arou AWS | 2009 自动气象站,Search candidate; availability is not assumed
+5,arou,Arou,阿柔,Heihe,2010,historical_gap,June 2008-present,阿柔 | Arou | Arou AWS | 2010 自动气象站,Search candidate; availability is not assumed
+5,arou,Arou,阿柔,Heihe,2011,historical_gap,June 2008-present,阿柔 | Arou | Arou AWS | 2011 自动气象站,Search candidate; availability is not assumed
+6,arou_shady_slope,Arou Shady Slope,阿柔阴坡,Heihe,2015,extension_candidate,Aug. 2013-Aug. 2015,阿柔阴坡 | Arou Shady Slope | Arou Shady Slope AWS | 2015 自动气象站,Search candidate; availability is not assumed
+7,yakou,Yakou,垭口,Heihe,2014,historical_gap,Jan. 2014-present,垭口 | Yakou | Yakou AWS | 2014 自动气象站,Search candidate; availability is not assumed
+8,huangzangsi,Huangzangsi,黄藏寺,Heihe,2015,extension_candidate,June 2013-Apr. 2015,黄藏寺 | Huangzangsi | Huangzangsi AWS | 2015 自动气象站,Search candidate; availability is not assumed
+10,guantan,Guantan,观滩,Heihe,2008,whole_site_gap,2008-2011,观滩 | Guantan | Guantan AWS | 2008 自动气象站,Search candidate; availability is not assumed
+10,guantan,Guantan,观滩,Heihe,2009,whole_site_gap,2008-2011,观滩 | Guantan | Guantan AWS | 2009 自动气象站,Search candidate; availability is not assumed
+10,guantan,Guantan,观滩,Heihe,2010,whole_site_gap,2008-2011,观滩 | Guantan | Guantan AWS | 2010 自动气象站,Search candidate; availability is not assumed
+10,guantan,Guantan,观滩,Heihe,2011,whole_site_gap,2008-2011,观滩 | Guantan | Guantan AWS | 2011 自动气象站,Search candidate; availability is not assumed
+12,shenshawo_sandy_desert,Shenshawo Sandy Desert,神沙窝沙漠,Heihe,2015,extension_candidate,June 2012-Apr. 2015,神沙窝沙漠 | Shenshawo Sandy Desert | Shenshawo Sandy Desert AWS | 2015 自动气象站,Search candidate; availability is not assumed
+13,heihe_remote_sensing,Heihe Remote Sensing,黑河遥感,Heihe,2014,historical_gap,Aug. 2014-present,黑河遥感 | Heihe Remote Sensing | Heihe Remote Sensing AWS | 2014 自动气象站,Search candidate; availability is not assumed
+13,heihe_remote_sensing,Heihe Remote Sensing,黑河遥感,Heihe,2015,historical_gap,Aug. 2014-present,黑河遥感 | Heihe Remote Sensing | Heihe Remote Sensing AWS | 2015 自动气象站,Search candidate; availability is not assumed
+14,zhangye_wetland,Zhangye wetland,张掖湿地,Heihe,2014,internal_gap,June 2012-present,张掖湿地 | Zhangye wetland | Zhangye wetland AWS | 2014 自动气象站,Search candidate; availability is not assumed
+16,yingke,Yingke,盈科,Heihe,2008,whole_site_gap,2008-2011,盈科 | Yingke | Yingke AWS | 2008 自动气象站,Search candidate; availability is not assumed
+16,yingke,Yingke,盈科,Heihe,2009,whole_site_gap,2008-2011,盈科 | Yingke | Yingke AWS | 2009 自动气象站,Search candidate; availability is not assumed
+16,yingke,Yingke,盈科,Heihe,2010,whole_site_gap,2008-2011,盈科 | Yingke | Yingke AWS | 2010 自动气象站,Search candidate; availability is not assumed
+16,yingke,Yingke,盈科,Heihe,2011,whole_site_gap,2008-2011,盈科 | Yingke | Yingke AWS | 2011 自动气象站,Search candidate; availability is not assumed
+17,bajitan_gobi,Bajitan Gobi,八一滩戈壁,Heihe,2015,extension_candidate,May 2012-Apr. 2015,八一滩戈壁 | Bajitan Gobi | Bajitan Gobi AWS | 2015 自动气象站,Search candidate; availability is not assumed
+19,barren_land,Barren Land,裸地,Heihe,2014,internal_gap,July 2013-Mar. 2016,裸地 | Barren Land | Barren Land AWS | 2014 自动气象站,Search candidate; availability is not assumed
+19,barren_land,Barren Land,裸地,Heihe,2016,extension_candidate,July 2013-Mar. 2016,裸地 | Barren Land | Barren Land AWS | 2016 自动气象站,Search candidate; availability is not assumed
+21,cropland,Cropland,农田,Heihe,2015,extension_candidate,July 2013-Nov. 2015,农田 | Cropland | Cropland AWS | 2015 自动气象站,Search candidate; availability is not assumed
+22,populus_euphratica,Populus euphratica,胡杨林,Heihe,2014,internal_gap,July 2013-Apr. 2016,胡杨林 | Populus euphratica | Populus euphratica AWS | 2014 自动气象站,Search candidate; availability is not assumed
+22,populus_euphratica,Populus euphratica,胡杨林,Heihe,2016,extension_candidate,July 2013-Apr. 2016,胡杨林 | Populus euphratica | Populus euphratica AWS | 2016 自动气象站,Search candidate; availability is not assumed
+H1,guantao,Guantao,馆陶,Haihe,2008,historical_gap,2008-2010 dataset scope,馆陶 | Guantao | Guantao AWS | 2008 自动气象站,Search candidate; availability is not assumed

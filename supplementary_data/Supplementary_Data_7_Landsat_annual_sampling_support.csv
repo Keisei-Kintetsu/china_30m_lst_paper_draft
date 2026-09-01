@@ -1,0 +1,26 @@
+﻿year,valid_sample_n,represented_area_km2,sensor_set,valid_sample_n_recomputed,analysis_weight_sum_km2,sample_definition
+2000,14827.0,6891726.638317857,L5+L7,14827,6891726.638317857,strict Landsat QA; >=3 valid observations; complete ChinaTherm30/RF-LST baseline 3x3 support; water fraction <=0.10
+2001,14634.0,6889623.595173284,L5+L7,14634,6889623.595173284,strict Landsat QA; >=3 valid observations; complete ChinaTherm30/RF-LST baseline 3x3 support; water fraction <=0.10
+2002,14556.0,6814888.764482963,L5+L7,14556,6814888.764482963,strict Landsat QA; >=3 valid observations; complete ChinaTherm30/RF-LST baseline 3x3 support; water fraction <=0.10
+2003,12807.0,6050038.885487206,L5+L7,12807,6050038.885487206,strict Landsat QA; >=3 valid observations; complete ChinaTherm30/RF-LST baseline 3x3 support; water fraction <=0.10
+2004,15550.0,7282986.296506982,L5+L7,15550,7282986.296506982,strict Landsat QA; >=3 valid observations; complete ChinaTherm30/RF-LST baseline 3x3 support; water fraction <=0.10
+2005,14575.0,6714654.447735443,L5+L7,14575,6714654.447735443,strict Landsat QA; >=3 valid observations; complete ChinaTherm30/RF-LST baseline 3x3 support; water fraction <=0.10
+2006,15265.0,7132048.102707539,L5+L7,15265,7132048.102707539,strict Landsat QA; >=3 valid observations; complete ChinaTherm30/RF-LST baseline 3x3 support; water fraction <=0.10
+2007,14558.0,6859611.834621185,L5+L7,14558,6859611.834621185,strict Landsat QA; >=3 valid observations; complete ChinaTherm30/RF-LST baseline 3x3 support; water fraction <=0.10
+2008,15021.0,6991861.168010926,L5+L7,15021,6991861.168010926,strict Landsat QA; >=3 valid observations; complete ChinaTherm30/RF-LST baseline 3x3 support; water fraction <=0.10
+2009,15907.0,7402993.220533418,L5+L7,15907,7402993.220533418,strict Landsat QA; >=3 valid observations; complete ChinaTherm30/RF-LST baseline 3x3 support; water fraction <=0.10
+2010,14315.0,6684830.348123573,L5+L7,14315,6684830.348123573,strict Landsat QA; >=3 valid observations; complete ChinaTherm30/RF-LST baseline 3x3 support; water fraction <=0.10
+2011,14870.0,6968734.947847141,L5+L7,14870,6968734.947847141,strict Landsat QA; >=3 valid observations; complete ChinaTherm30/RF-LST baseline 3x3 support; water fraction <=0.10
+2012,10721.0,4886580.153700007,L7,10721,4886580.153700007,strict Landsat QA; >=3 valid observations; complete ChinaTherm30/RF-LST baseline 3x3 support; water fraction <=0.10
+2013,16406.0,7756635.594728583,L7+L8,16406,7756635.5947285835,strict Landsat QA; >=3 valid observations; complete ChinaTherm30/RF-LST baseline 3x3 support; water fraction <=0.10
+2014,15768.0,7342163.335848982,L7+L8,15768,7342163.335848982,strict Landsat QA; >=3 valid observations; complete ChinaTherm30/RF-LST baseline 3x3 support; water fraction <=0.10
+2015,16173.0,7574088.352428913,L7+L8,16173,7574088.352428913,strict Landsat QA; >=3 valid observations; complete ChinaTherm30/RF-LST baseline 3x3 support; water fraction <=0.10
+2016,15410.0,7228346.951879876,L7+L8,15410,7228346.951879876,strict Landsat QA; >=3 valid observations; complete ChinaTherm30/RF-LST baseline 3x3 support; water fraction <=0.10
+2017,15300.0,7025037.846218394,L7+L8,15300,7025037.846218394,strict Landsat QA; >=3 valid observations; complete ChinaTherm30/RF-LST baseline 3x3 support; water fraction <=0.10
+2018,15351.0,7141270.589085106,L7+L8,15351,7141270.589085106,strict Landsat QA; >=3 valid observations; complete ChinaTherm30/RF-LST baseline 3x3 support; water fraction <=0.10
+2019,16121.0,7572759.796682401,L7+L8,16121,7572759.796682401,strict Landsat QA; >=3 valid observations; complete ChinaTherm30/RF-LST baseline 3x3 support; water fraction <=0.10
+2020,15741.0,7308680.738135884,L7+L8,15741,7308680.738135884,strict Landsat QA; >=3 valid observations; complete ChinaTherm30/RF-LST baseline 3x3 support; water fraction <=0.10
+2021,16037.0,7527598.845750034,L7+L8,16037,7527598.845750034,strict Landsat QA; >=3 valid observations; complete ChinaTherm30/RF-LST baseline 3x3 support; water fraction <=0.10
+2022,17786.0,8373020.716748236,L7+L8+L9,17786,8373020.716748236,strict Landsat QA; >=3 valid observations; complete ChinaTherm30/RF-LST baseline 3x3 support; water fraction <=0.10
+2023,17341.0,8130603.71640129,L7+L8+L9,17341,8130603.71640129,strict Landsat QA; >=3 valid observations; complete ChinaTherm30/RF-LST baseline 3x3 support; water fraction <=0.10
+2024,16246.0,7672599.420029669,L8+L9,16246,7672599.420029669,strict Landsat QA; >=3 valid observations; complete ChinaTherm30/RF-LST baseline 3x3 support; water fraction <=0.10

@@ -1,0 +1,147 @@
+\documentclass[UTF8,zihao=-4]{ctexart}
+
+\usepackage[a4paper,margin=1.8cm]{geometry}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{longtable}
+\usepackage{pdflscape}
+\usepackage{ragged2e}
+\usepackage{xcolor}
+\usepackage[colorlinks=true,citecolor=blue!55!black,urlcolor=blue!55!black]{hyperref}
+\usepackage[backend=biber,style=apa,sorting=nyt]{biblatex}
+
+\addbibresource{references.bib}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0.25em}
+
+\title{Supplementary information for ChinaTherm30}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\renewcommand{\thefigure}{S\arabic{figure}}
+\renewcommand{\thetable}{S\arabic{table}}
+
+\section*{Supplementary Figures}
+
+\begin{figure}[p]
+\centering
+\includegraphics[width=0.96\linewidth]{../figures/FigureS1.pdf}
+\caption{Six macroregions used for stratified sampling and regional reporting. The boundaries aggregate 46 ecological regions from the China eco-geographical regionalization: TP, Tibetan Plateau; NEC, Northeast China; NCLP, North China--Loess Plateau; ANW, Arid Northwest; HSE, Humid Southeast; and SWM, Southwest Mountains. These abbreviations are used consistently in the main text and figures.}
+\label{fig:s1-macroregions}
+\end{figure}
+
+\clearpage
+\begin{figure}[p]
+\centering
+\includegraphics[width=0.96\linewidth]{../figures/FigureS2.pdf}
+\caption{Spatial support of the nationwide Landsat Collection 2 surface-temperature validation. Valid samples from 2000--2024 are aggregated to 1° grid cells to avoid overplotting. A sample-year requires strict cloud, shadow, snow and radiometric-saturation screening, at least three valid Landsat observations, available 3$\times$3 ChinaTherm30 and RF-LST baseline means, and a water fraction no greater than 10\%. Macroregion boundaries follow Figure~S1.}
+\label{fig:s2-landsat-density}
+\end{figure}
+
+\clearpage
+\begin{figure}[p]
+\centering
+\includegraphics[width=0.94\linewidth]{../figures/FigureS3.pdf}
+\caption{Annual support of the nationwide Landsat validation. Valid sample counts and represented stable-land area use the same eligibility and analysis weights as the area-weighted validation metrics in the main text.}
+\label{fig:s3-landsat-annual}
+\end{figure}
+
+\clearpage
+\begin{figure}[p]
+\centering
+\includegraphics[width=0.94\linewidth]{../figures/FigureS4.pdf}
+\caption{Temporal coverage of the final ground-validation set. Colours indicate the number of valid MOD11A2-aligned eight-day bins contributing to each station-year annual IRT composite. The final set contains 131 station-years across all 23 sites and 16 calendar years. Site IDs follow Table~S1.}
+\label{fig:s4-ground-coverage}
+\end{figure}
+
+\clearpage
+\begin{figure}[p]
+\centering
+\includegraphics[width=0.94\linewidth]{../figures/FigureS5.pdf}
+\caption{Paired-IRT consistency within the 145 candidate station-years. A paired-sensor diagnostic was available for 143 records. Fourteen station-years with a median daily paired-IRT absolute difference greater than 5~$^{\circ}$C were excluded from the final ground-reference set; the remaining 131 station-years retained all 23 sites. The criterion uses only ground-sensor measurements.}
+\label{fig:s5-ground-qc}
+\end{figure}
+
+\clearpage
+\begin{figure}[p]
+\centering
+\includegraphics[width=0.92\linewidth]{../figures/FigureS6.pdf}
+\caption{ChinaTherm30 3$\times$3 neighbourhood medians compared with annual ground-IRT composites before and after ground-reference quality control. Coloured circles are the 131 final station-years, and red crosses are the 14 records excluded by the paired-IRT criterion. Summary statistics report the complete 145-record candidate set and the 131-record final set.}
+\label{fig:s6-ground-set-comparison}
+\end{figure}
+
+\clearpage
+\begin{figure}[p]
+\centering
+\includegraphics[width=0.94\linewidth]{../figures/FigureS7.pdf}
+\caption{Spatial-support sensitivity before and after ground-reference quality control. Points show RMSE and MAE for the ChinaTherm30 centre pixel and median neighbourhoods from 3$\times$3 to 33$\times$33 pixels; error bars are 95\% site-cluster bootstrap intervals. The four series are slightly offset horizontally within each neighbourhood for legibility. The main text reports the final quality-controlled set.}
+\label{fig:s7-ground-support}
+\end{figure}
+
+\clearpage
+\begin{landscape}
+\section*{Supplementary Tables}
+\scriptsize
+\setlength{\tabcolsep}{2.4pt}
+\renewcommand{\arraystretch}{1.12}
+\begin{longtable}{@{}c p{2.8cm} p{1.1cm} p{1.35cm} p{2.35cm} r r r p{2.25cm} r p{1.25cm} r p{1.95cm}@{}}
+\caption{Station metadata, source parsing, and final validation coverage. Heihe Site IDs 1--23 follow \textcite{liu2018heiheNetwork}; H1 and H2 denote the Guantao and Daxing sites in the Haihe basin. Candidate records use $K\geq0.65$, 10:30 local mean solar time $\pm30$ min, and at least eight valid MOD11A2-aligned eight-day bins; final coverage additionally applies the paired-IRT ground-reference criterion.}\label{tab:s1-stations}\\
+\toprule
+\shortstack{Site\\ID} & Station & Network & Reach & Landscape & Lon. & Lat. & Elev. & \shortstack{Duration\\reported} & \shortstack{Parsed\\XLSX} & \shortstack{Final\\years} & \shortstack{Site-\\years} & Status \\
+\midrule
+\endfirsthead
+\multicolumn{13}{l}{\textit{Table S1 continued}}\\
+\toprule
+\shortstack{Site\\ID} & Station & Network & Reach & Landscape & Lon. & Lat. & Elev. & \shortstack{Duration\\reported} & \shortstack{Parsed\\XLSX} & \shortstack{Final\\years} & \shortstack{Site-\\years} & Status \\
+\midrule
+\endhead
+\midrule
+\multicolumn{13}{r}{\textit{Continued on next page}}\\
+\endfoot
+\bottomrule
+\endlastfoot
+\input{supplementary/table_s1_station_rows.tex}
+\end{longtable}
+\end{landscape}
+
+\begin{longtable}{@{}p{3.4cm}p{12.0cm}@{}}
+\caption{Ground-IRT processing and validation protocol.}\label{tab:s2-protocol}\\
+\toprule
+Step & Definition \\
+\midrule
+\endfirsthead
+\multicolumn{2}{l}{\textit{Table S2 continued}}\\
+\toprule
+Step & Definition \\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+\input{supplementary/table_s2_protocol_rows.tex}
+\end{longtable}
+
+The temporal, clear-sky and annual-support filters yielded 145 candidate station-years. Ground-reference quality control excluded a station-year when the median of its daily paired-IRT absolute differences exceeded 5~$^{\circ}$C; no ChinaTherm30 or RF-LST value was used in this decision. The final set retained 131 station-years across all 23 sites and excluded 14 records (eight at Huazhaizi Desert Steppe, five at Jingyangling, and one at Barren Land). For the ChinaTherm30 3$\times$3 comparison, $r$ and RMSE changed from 0.811 and 5.993~$^{\circ}$C in the candidate set to 0.840 and 5.397~$^{\circ}$C in the final set. Table~S3 provides the complete exclusion audit.
+
+\begin{longtable}{@{}p{2.7cm}p{1.5cm}r r r r p{2.3cm}@{}}
+\caption{Station-years excluded from the final ground-reference set by paired-IRT inconsistency. Paired days count days with a finite IRT-1/IRT-2 diagnostic; medians and 95th percentiles are daily absolute paired-sensor differences. No satellite-product residual was used in the criterion.}\label{tab:s3-ground-qc}\\
+\toprule
+Station & \shortstack{Chinese\\name} & Year & Paired days & Median ($^{\circ}$C) & P95 ($^{\circ}$C) & Status \\
+\midrule
+\endfirsthead
+\multicolumn{7}{l}{\textit{Table S3 continued}}\\
+\toprule
+Station & \shortstack{Chinese\\name} & Year & Paired days & Median ($^{\circ}$C) & P95 ($^{\circ}$C) & Status \\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+\input{supplementary/table_s3_ground_qc_exclusion_rows.tex}
+\end{longtable}
+
+\clearpage
+\printbibliography
+\end{document}
