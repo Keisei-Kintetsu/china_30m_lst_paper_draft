@@ -8,10 +8,12 @@
 \usepackage{graphicx}
 \usepackage{tabularx}
 \usepackage{xcolor}
+\usepackage{csquotes}
 \usepackage[colorlinks=true,linkcolor=blue!55!black,citecolor=blue!55!black,urlcolor=blue!55!black]{hyperref}
-\usepackage[backend=bibtex,style=gb7714-2015,sorting=none]{biblatex}
+\usepackage[backend=biber,style=apa,sorting=nyt]{biblatex}
 
 \addbibresource{references.bib}
+\AtBeginBibliography{\setlength{\emergencystretch}{3em}}
 
 \setlength{\parindent}{2em}
 \setlength{\parskip}{0.25em}
@@ -19,7 +21,7 @@
 \graphicspath{{../figures/}}
 
 \newcommand{\rf}{RF-LST}
-\newcommand{\ra}{RA-LST}
+\newcommand{\chinatherm}{ChinaTherm30}
 \newcommand{\figureorplaceholder}[3]{%
   \IfFileExists{#1}{%
     \includegraphics[width=\linewidth]{#1}%
@@ -28,14 +30,16 @@
   }%
 }
 
-\title{A 25-year record of annual 30 m daytime land surface temperature composites during the leaf-on season across China\\
-\large 中国2000--2024年30 m叶盛期日间地表温度年度复合数据集}
+\title{ChinaTherm30: a 25-year record of annual 30 m daytime land surface temperature composites during the leaf-on season across China\\
+\large ChinaTherm30：中国2000--2024年30 m叶盛期日间地表温度年度复合数据集}
 \author{%
-Erzheng Liang$^{1}$, Luoma Wan$^{1}$, Yaotong Cai$^{2}$, Ziheng Zhu$^{3,*}$\\[0.5em]
-\small $^{1}$The University of Hong Kong, Hong Kong SAR, China\\
-\small $^{2}$Sun Yat-sen University, Guangzhou, China\\
-\small $^{3}$Fudan University, Shanghai, China\\[0.4em]
-\small $^{*}$Correspondence: Ziheng Zhu\\
+Erzheng Liang$^{1,2}$, Luoma Wan$^{2}$, Yaotong Cai$^{3}$, Ziheng Zhu$^{1,*}$\\[0.5em]
+\small $^{1}$MOE Laboratory for National Development and Intelligent Governance,\\
+\small Fudan University, Shanghai 200433, China\\
+\small $^{2}$Department of Geography, The University of Hong Kong, Hong Kong 999077, China\\
+\small $^{3}$School of Environmental Science and Engineering,\\
+\small Southern University of Science and Technology, Shenzhen 518055, China\\[0.4em]
+\small $^{*}$Correspondence: Ziheng Zhu (\href{mailto:zhuziheng@fudan.edu.cn}{zhuziheng@fudan.edu.cn})\\
 \small Erzheng Liang: \href{mailto:u3665916@connect.hku.hk}{u3665916@connect.hku.hk}}
 \date{}
 
@@ -43,26 +47,30 @@ Erzheng Liang$^{1}$, Luoma Wan$^{1}$, Yaotong Cai$^{2}$, Ziheng Zhu$^{3,*}$\\[0.
 \maketitle
 
 \begin{abstract}
-地表温度（land surface temperature, LST）是地表能量收支、水分胁迫和陆气相互作用的重要表征，但长期热红外记录通常难以同时兼顾全国覆盖、稳定的年度观测定义和精细空间结构。本文发布中国2000--2024年30 m叶盛期日间LST年度复合数据集。每年一期的公里级热目标由名义起始日位于年积日150--300且通过质量筛选的Terra日间八日LST合成值取像元中位数获得。基于30 m无缝年度叶盛期Landsat光学指标、地形和空间位置变量，我们训练统一的跨年随机森林模型，并利用平滑后的公里尺度热残差校准区域温度背景。数据集包含25年、每年91个4°瓦片，共2,275个GeoTIFF文件，总体积约611~GiB。随机70/30测试的Pearson相关系数为0.972、RMSE为2.140~°C；更严格的空间留块验证相关系数为0.904、RMSE为3.967~°C。全国空间分层的Landsat Collection 2 ST比较覆盖全部25年，年度空间相关中位数为0.874，中心化RMSE中位数为4.355~°C。2014年WATERNET直接地表红外辐射温度比较中，最终产品的相关系数和RMSE分别为0.857和1.811~°C；34个FLUXNET中国站点的240个站点年提供了进一步的多生态区检验。公里尺度一致性、独立卫星热红外、无人机热纹理和地面辐射温度共同刻画了产品在不同空间支持尺度下的性能。该数据记录为中国陆地区域叶盛期日间热环境的长期比较、跨尺度分析和局地空间研究提供了统一基础，并同步发布观测支持、低频调整场、水体状态、稳定陆地域和文件校验信息。
+长期热红外记录难以同时兼顾全国覆盖、稳定的年度观测定义和精细空间结构。本文发布\chinatherm{}，一套覆盖中国2000--2024年的30 m叶盛期日间地表温度（land surface temperature, LST）年度复合数据集。我们以质量筛选后的Terra日间八日LST构建公里级年度热目标，结合30 m年度叶盛期Landsat光学指标、地形和空间位置变量训练统一的跨年随机森林模型，并用平滑的公里尺度残差校准区域温度背景。数据集包含25期、每期91个4°瓦片。空间留块验证的相关系数为0.904、RMSE为3.967~°C；覆盖25年的全国分层Landsat比较所得年度空间相关中位数为0.874。经过地面参照一致性质控的独立评价包含23个站点和131个站点年，\chinatherm{}的3$\times$3邻域中位数与年度地面IRT复合值的相关系数为0.840、RMSE为5.397~°C。卫星、无人机和地面观测分别从全国温度格局、局地热纹理和站点年度热状态三个层面提供了相互补充的评价。该数据记录为中国陆地区域叶盛期日间热环境的长期比较、跨尺度分析和局地空间研究提供了统一基础。
 \end{abstract}
 
-\noindent\textbf{关键词：} 地表温度；统计降尺度；随机森林；MODIS；Landsat；中国；数据记录
+\noindent\textbf{关键词：} ChinaTherm30；地表温度；统计降尺度；随机森林；MODIS；Landsat；中国；数据记录
 
 \section{Background \& Summary（背景与概述）}
 
-LST是陆面与大气交界处的辐射表面温度，直接响应短波和长波辐射、感热与潜热交换以及土壤热通量的共同作用\cite{kustas2009thermal,li2013lstReview,li2023globalLstReview}。它与近地面气温具有不同物理含义，却是地表能量平衡和水分胁迫的重要观测量。卫星LST已广泛服务于蒸散发估算和水资源管理、城市热环境分析、干旱监测、陆面模型评价及生态过程研究\cite{anderson2012landsatThermal,weng2004lst,li2023globalLstReview}。连续的空间观测使遥感能够把站点难以覆盖的地表热异质性扩展到区域乃至大陆尺度；相应地，长期研究要求观测记录同时具有明确且稳定的时间定义、足够广的空间覆盖和解析局地地表差异的能力。
+地表温度（land surface temperature, LST）是刻画陆面热状态的基本物理量\parencite{norman1995terminology,li2013lstReview,li2023globalLstReview}。其变化反映净辐射、感热、潜热与土壤热通量的共同作用，是联系地表能量平衡与水循环的关键状态量\parencite{kustas2009thermal,bojinski2014ecv}。长期LST记录的科学价值既取决于单次观测精度，也取决于时间定义、空间覆盖和跨传感器一致性。
 
-卫星热红外观测在空间分辨率与时间采样之间存在长期权衡。MODIS等中分辨率传感器提供频繁且相对一致的全球观测，适合描述区域热背景和季节变化，但公里级像元会混合城市内部、农田边界、河谷、山地垂直带和破碎土地覆盖的显著温差\cite{wan2008modis,li2013lstReview}。Landsat开放档案为数十年精细尺度陆地监测奠定了基础，其热红外观测已用于蒸散发、水资源和长期地表热环境研究\cite{wulder2012opening,anderson2012landsatThermal,cheng2021landsat30m}。然而，Landsat 5、7、8和9跨越不同热红外传感器与原生热分辨率，单星16日重访进一步受到云、云影、雪和有效过境时相的限制；Landsat 7扫描线校正器故障还引入了条带状缺口\cite{roy2014landsat8,masek2020landsat9,wulder2022landsat50}。这些因素使单景热红外影像难以直接组成覆盖全国、逐年无缝且时间含义一致的30 m记录。已有研究通过不规则Landsat时序重建和跨代Landsat热产品构建缓解了部分问题\cite{fu2016consistent,cheng2021landsat30m}，但长时间序列全国年度制图仍需要在观测完整性、跨年一致性与空间细节之间作出明确设计。
+卫星LST支撑多类彼此关联的陆面研究。蒸散发和水资源管理依赖地表温度对水分受限状况的响应\parencite{bastiaanssen1998sebal,anderson2012landsatThermal}；城市热环境研究利用其刻画建筑与植被格局造成的细尺度温差\parencite{voogt2003urban,weng2004lst}。温度--植被特征空间也常用于表征地表湿度和干旱状态\parencite{sandholt2002drought}。这些应用需要在区域至大陆尺度刻画站点观测难以覆盖的热异质性。
 
-空间降尺度和时空融合为弥合这一缺口提供了另一条路径。机器学习可以学习LST与植被、湿度、裸地、地形和空间位置之间的非线性关系，并把较粗的热背景分配到精细网格；随机森林已被证明适合区域LST降尺度，后续研究进一步探索了混合像元、特征选择和长时间序列应用\cite{hutengs2016rf,ebrahimy2019mixedpixels,ebrahimy2021adaptive}。近期融合研究已能在特定区域生成很高时空分辨率的合成LST\cite{qi2026thermalGap}。这些方法同时提出了一个需要单独检验的问题：精细网格中的局地纹理主要由高分辨率辅助变量推断，而宽尺度温度水平仍依赖热红外目标。因此，一套长期全国30 m记录需要兼顾低频热背景校准与局地空间结构保持，并分别评价模型泛化、背景一致性和细节保留能力。
+现有卫星热红外观测长期受空间分辨率与时间采样之间的权衡制约。MODIS提供频繁且相对一致的全球观测，并经历了系统的地面验证与产品迭代\parencite{wan2002modisValidation,wan2008modis,duan2019modisValidation}。这类公里级产品适合描述区域热背景和季节变化，却会混合城市内部、农田边界、河谷、山地垂直带和破碎土地覆盖的显著温差。精细尺度研究因而需要更高空间分辨率的长期记录。
 
-本数据集以中国地球观测数据立方体的30 m无缝年度叶盛期Landsat合成产品为统一光学基础\cite{cai2025ceodc}。该数据立方体通过长期一致的年度合成体系减少单景云污染、条带缺口和跨年有效观测不均对光学预测变量的影响，并提供空间连续的NDVI、WET和NDBSI指标。本文将这些指标与地形和位置变量共同用于2000--2024年全国LST建模，以质量筛选后的Terra日间八日LST复合作为稳定的公里级年度热目标。单一跨年随机森林首先生成30 m基线，随后以平滑低频残差修正区域温度背景。这里的“叶盛期”同时指向年度leaf-on光学合成基础和固定DOY筛选窗口，是25期产品共享的季节标签；不同气候区的实际物候阶段仍可结合区域物候资料进一步判读。
+Landsat开放档案为数十年精细尺度陆地监测奠定了基础\parencite{wulder2012opening,wulder2022landsat50}。Landsat 8和9延续了热红外观测能力\parencite{roy2014landsat8,masek2020landsat9}，而面向业务化地表温度反演与30 m产品构建的研究也日益成熟\parencite{malakar2018landsatSt,ermida2020landsatGee,cheng2021landsat30m,usgs2021collection2}。然而，不同代传感器具有不同的热红外配置和原生分辨率；单星16日重访还受云、云影、雪及有效过境时相限制。云影识别、不规则时序重建和年度合成可以缓解部分缺测\parencite{zhu2012fmask,fu2016consistent,hermosilla2015composites}，但单景热影像仍难直接组成全国逐年无缝且季节含义一致的30 m记录。分析就绪档案、年度无缝合成和数据立方体为长时间序列制图提供了可扩展基础\parencite{dwyer2018ard,lewis2017datacube,hermosilla2015composites}。本研究采用的中国地球观测数据立方体形成了长期一致的30 m年度叶盛期Landsat六波段表面反射率合成\parencite{cai2025ceodc}，减少了单景云污染、Landsat 7条带缺口及跨年观测不均对高分辨率预测变量的影响。
 
-本文发布的记录包含25期年度复合值、每期91个4°瓦片，并提供有效热观测数量、低频调整场、水体掩膜、稳定陆地域、文件清单和校验和。技术评价覆盖随机与分块泛化、模型容量敏感性、公里尺度背景一致性、30 m高频结构保持、独立卫星热红外、无人机热纹理以及地面辐射温度。每一期数据对应固定DOY窗口内的叶盛期日间地表热背景；30 m表示输出网格以及由高分辨率光学与地形变量表达的空间推断尺度。全年、全天或瞬时热环境分析可结合具有相应时间定义的观测资料开展。通过同时公开核心数据、质量信息和适用边界，该记录旨在为中国陆地区域长期叶盛期热环境研究提供可追溯且跨年一致的空间基础。
+空间降尺度和时空融合提供了连接频繁热观测与精细空间信息的另一条路径。传统热锐化利用植被指数与温度的尺度关系\parencite{agam2007sharpening}，时空融合则通过多源影像补充高分辨率时间序列\parencite{gao2006starfm,zhu2010estarfm,qi2026thermalGap}。随机森林能够学习LST与植被、湿度、裸地、地形和位置之间的非线性关系，已用于区域降尺度、混合像元分析和长时间序列研究\parencite{hutengs2016rf,ebrahimy2019mixedpixels,ebrahimy2021adaptive}。在这类模型中，高分辨率辅助变量主要塑造局地纹理，较粗分辨率热目标则提供区域温度背景。\chinatherm{}的技术评价由此覆盖公里尺度背景、30 m空间结构，以及卫星、无人机和地面观测所提供的独立证据。
+
+据此，本文将由年度叶盛期Landsat六波段表面反射率合成计算的光学指标与地形、位置变量用于2000--2024年全国LST建模，以质量筛选后的Terra日间八日LST复合作为公里级年度热目标。单一跨年随机森林首先生成30 m基线，随后通过平滑低频残差校准区域温度背景。“叶盛期”同时指年度leaf-on光学合成基础和固定DOY筛选窗口，是25期产品共享的季节标签。
+
+本文发布的\chinatherm{}记录包含25期年度复合值，每期由91个4°瓦片组成。技术评价覆盖随机与分块泛化、模型容量敏感性、公里尺度背景一致性、30 m高频结构保持、独立卫星热红外、无人机热纹理以及地面辐射温度。每一期数据对应固定DOY窗口内的叶盛期日间地表热背景；30 m表示输出网格以及由高分辨率光学与地形变量表达的空间推断尺度。该记录为中国陆地区域长期叶盛期热环境研究提供了跨年一致的30 m空间数据基础。
 
 \begin{figure}[H]
   \centering
-  \figureorplaceholder{../figures/Fig01_study_area/Figure1.pdf}{Figure 1：研究区与观测支持}{7.0cm}
+  \figureorplaceholder{../figures/Figure1.pdf}{Figure 1：研究区与观测支持}{7.0cm}
   \caption{研究区、瓦片体系和目标数据支持度。a，中国地形及91个4°输出瓦片；b，2000--2024年各像元年度有效日间八日热合成数量的多年中位数；c，中国陆地区域内逐年有效八日热合成数量及低数据支持面积比例。}
   \label{fig:study-area}
 \end{figure}
@@ -71,13 +79,31 @@ LST是陆面与大气交界处的辐射表面温度，直接响应短波和长�
 
 \subsection{研究范围与目标变量定义}
 
-研究范围覆盖中国陆地区域，时间范围为2000--2024年。输出沿用中国地球观测数据立方体的4°经纬度瓦片体系（图~\ref{fig:study-area}a），每年包含91个瓦片。年度目标来自Earth Engine数据集\texttt{MODIS/061/MOD11A2}的\texttt{LST\_Day\_1km}和\texttt{QC\_Day}波段。MOD11A2 V061将一个八日周期内对应的MOD11A1逐日LST值进行简单平均，并以约1 km网格发布\cite{lpdaacMod11a2}。
+研究范围覆盖中国陆地区域，时间范围为2000--2024年。输出沿用中国地球观测数据立方体的4°经纬度瓦片体系（图~\ref{fig:study-area}a），每年包含91个瓦片。年度目标来自Earth Engine数据集\texttt{MODIS/061/MOD11A2}的\texttt{LST\_Day\_1km}和\texttt{QC\_Day}波段。MOD11A2 V061将一个八日周期内对应的MOD11A1逐日LST值进行简单平均，并以约1 km网格发布\parencite{lpdaacMod11a2,wan2002modisValidation,wan2008modis}。
 
-每年按影像名义起始日期筛选DOY 150--300，并保留\texttt{QC\_Day}最低两位为00或01的像元，即Mandatory QA标记为“已生成、质量良好”或“已生成、其他质量”。标准八日序列中，该筛选对应19期名义起始日为DOY 153、161、\ldots、297的合成影像；最后一期八日窗口可延伸至DOY 304。\texttt{LST\_Day\_1km}先乘以0.02转换为Kelvin，再减去273.15转换为摄氏度，随后对各像元通过质量筛选的八日平均LST取中位数。由此得到的每个年度值概括19个候选八日周期中的中位热状态；固定的筛选和合成规则保证了25期目标记录具有一致的时间定义。后文将其简称为“公里级年度热目标”。
+每年按影像名义起始日期筛选DOY 150--300，并保留\texttt{QC\_Day}最低两位为00或01的像元，即Mandatory QA标记为“已生成、质量良好”或“已生成、其他质量”。标准八日序列中，该筛选对应19期名义起始日为DOY 153、161、\ldots、297的合成影像；最后一期八日窗口可延伸至DOY 304。\texttt{LST\_Day\_1km}先乘以0.02转换为Kelvin，再减去273.15转换为摄氏度，随后对各像元通过质量筛选的八日平均LST取中位数。由此得到的每个年度值概括19个候选八日周期中的中位热状态，后文简称为“公里级年度热目标”。
+
+全国统计以中国陆地为分析域。JRC Global Surface Water的30 m非水体像元先聚合至0.01°网格，陆地比例达到50\%的网格定义为该年陆地；2000--2021年每年均达到该阈值的网格构成稳定共同陆地域。2022--2024年的年度陆地状态沿用2021年结果，跨年统计和独立卫星比较使用上述稳定共同陆地域。
+
+区域统计将中国生态地理区划聚合为六个宏区：青藏高原（Tibetan Plateau, TP）、东北地区（Northeast China, NEC）、华北--黄土高原区（North China-Loess Plateau, NCLP）、西北干旱区（Arid Northwest, ANW）、东南湿润区（Humid Southeast, HSE）和西南山地区（Southwest Mountains, SWM）。六宏区的空间边界见补充图~S1，后文和图件统一使用上述缩写。
 
 \subsection{输入数据}
 
-中国地球观测数据立方体的年度无缝叶盛期Landsat合成产品提供NDVI、WET和NDBSI三个30 m光学预测变量\cite{cai2025ceodc}。静态地形变量来自Earth Engine中的Copernicus DEM GLO-30影像集合\texttt{COPERNICUS/DEM/GLO30}；该数据为全球约30 m数字表面模型，高程经拼接和网格对齐后写入4°瓦片，坡度由同一高程场派生\cite{copernicusDem2022}。经度和纬度取30 m像元中心坐标，用于表达全国尺度的空间背景。前述Terra日间八日LST用于构建公里级年度热目标和残差调整场。JRC Global Surface Water数据用于生成年度水体状态和长期稳定陆地域\cite{pekel2016water}。主要输入及其用途见表~\ref{tab:inputs}。
+中国地球观测数据立方体的年度无缝叶盛期Landsat合成产品提供蓝、绿、红、近红外和两条短波红外共六个30 m表面反射率波段\parencite{cai2025ceodc}。设六个经跨传感器一致化的TM等效反射率依次为$\rho_{\mathrm{B}}$、$\rho_{\mathrm{G}}$、$\rho_{\mathrm{R}}$、$\rho_{\mathrm{NIR}}$、$\rho_{\mathrm{SWIR1}}$和$\rho_{\mathrm{SWIR2}}$，光学预测变量按下式计算\parencite{tucker1979ndvi,crist1985tasseled,zha2003ndbi,xu2008ibi}：
+\begin{align}
+\mathrm{NDVI} & = \frac{\rho_{\mathrm{NIR}}-\rho_{\mathrm{R}}}{\rho_{\mathrm{NIR}}+\rho_{\mathrm{R}}},\\
+\mathrm{WET} & = 0.0315\rho_{\mathrm{B}}+0.2021\rho_{\mathrm{G}}+0.3102\rho_{\mathrm{R}}+0.1594\rho_{\mathrm{NIR}}-0.6806\rho_{\mathrm{SWIR1}}-0.6109\rho_{\mathrm{SWIR2}}.
+\end{align}
+NDBSI由土壤指数（soil index, SI）和基于指数的建筑指数（index-based built-up index, IBI）的算术平均得到：
+\begin{align}
+\mathrm{SI} & = \frac{(\rho_{\mathrm{SWIR1}}+\rho_{\mathrm{R}})-(\rho_{\mathrm{NIR}}+\rho_{\mathrm{B}})}{(\rho_{\mathrm{SWIR1}}+\rho_{\mathrm{R}})+(\rho_{\mathrm{NIR}}+\rho_{\mathrm{B}})},\\
+D & = \frac{2\rho_{\mathrm{SWIR1}}}{\rho_{\mathrm{SWIR1}}+\rho_{\mathrm{NIR}}},\qquad
+V = \frac{\rho_{\mathrm{NIR}}}{\rho_{\mathrm{NIR}}+\rho_{\mathrm{R}}}+\frac{\rho_{\mathrm{G}}}{\rho_{\mathrm{G}}+\rho_{\mathrm{SWIR1}}},\\
+\mathrm{IBI} & = \frac{D-V}{D+V},\qquad
+\mathrm{NDBSI}=\frac{\mathrm{SI}+\mathrm{IBI}}{2}.
+\end{align}
+
+静态地形变量来自Earth Engine中的Copernicus DEM GLO-30影像集合；该数据为全球约30 m数字表面模型，高程经拼接和网格对齐后写入4°瓦片，坡度由同一高程场派生\parencite{copernicusDem2022}。经度和纬度取30 m像元中心坐标，用于表达全国尺度的空间背景。前述Terra日间八日LST用于构建公里级年度热目标和残差调整场。JRC Global Surface Water数据用于生成年度水体状态和长期稳定陆地域\parencite{pekel2016water}。主要输入及其用途见表~\ref{tab:inputs}。
 
 \begin{table}[H]
 \centering
@@ -88,26 +114,27 @@ LST是陆面与大气交界处的辐射表面温度，直接响应短波和长�
 \toprule
 数据 & 标称分辨率 & 时间范围 & 用途 \\
 \midrule
-年度无缝叶盛期Landsat合成指标 & 30 m & 2000--2024 & NDVI、WET和NDBSI预测变量 \\
+年度无缝叶盛期Landsat六波段表面反射率合成 & 30 m & 2000--2024 & 计算NDVI、WET和NDBSI预测变量 \\
 MODIS Terra MOD11A2 V061日间八日LST & 1 km；8日 & 2000--2024 & 年度中位目标及低频残差参考 \\
 Copernicus DEM GLO-30高程与派生坡度 & 30 m & 静态 & 地形预测变量 \\
 经度与纬度 & 30 m网格 & 静态 & 全国尺度空间背景变量 \\
 JRC Global Surface Water & 30 m & 2000--2021 & 年度水体状态、陆地域和质量控制 \\
-独立卫星热红外产品 & 30--120 m网格 & 多年份 & Landsat、ASTER和ECOSTRESS技术评价 \\
-地面与无人机温度观测 & 点位至亚米级 & 2014--2024 & 地表辐射温度和局地空间结构评价 \\
+Landsat Collection 2 Level-2地表温度 & 30 m网格 & 2000--2024 & 全国空间分层独立评价 \\
+黑河无人机热红外亮温 & 0.4 m & 2020 & 局地空间结构评价 \\
+国家冰川冻土沙漠科学数据中心自动站地表红外辐射温度 & 点位 & 2008--2024 & 跨站点年度独立地面评价 \\
 \bottomrule
 \end{tabularx}
 \end{table}
 
 \subsection{预测变量与训练样本构建}
 
-为匹配热目标的空间支持尺度，NDVI、WET、NDBSI、高程和坡度首先通过面积平均聚合到对应年度和瓦片的0.01°目标网格，经纬度取网格中心坐标。候选样本需同时具有完整的七项预测变量和有效的公里级年度热目标。样本随后按“年份--4°瓦片”分层随机抽取：完整覆盖瓦片以500个样本为基准，实际配额按该瓦片有效目标像元比例缩减并取整，同时受有效候选像元总数约束。该策略在不同年份和瓦片之间保持均衡覆盖，最终形成1,026,617条训练记录。模型输入为NDVI、WET、NDBSI、高程、坡度、经度和纬度，响应变量为同一0.01°网格位置的年度热目标。抽样和30 m推理均覆盖91个规则矩形瓦片；中国陆地分析域由后述范围与水体辅助层统一标识。
+为匹配热目标的空间支持尺度，NDVI、WET、NDBSI、高程和坡度首先通过面积平均聚合到对应年度和瓦片的0.01°目标网格，经纬度取网格中心坐标。候选样本需同时具有完整的七项预测变量和有效的公里级年度热目标。样本随后按“年份--4°瓦片”分层随机抽取：完整覆盖瓦片以500个样本为基准，实际配额按该瓦片有效目标像元比例缩减并取整，同时受有效候选像元总数约束。该策略共形成1,026,617条训练记录。模型输入为NDVI、WET、NDBSI、高程、坡度、经度和纬度，响应变量为同一0.01°网格位置的年度热目标。训练抽样覆盖91个规则矩形瓦片，并未另行施加水体掩膜；中国陆地上的统计和独立评价使用第2.1节定义的年度或稳定共同陆地域。
 
 \subsection{随机森林空间降尺度}
 
-将25年的训练样本合并后，共同训练一个随机森林回归模型\cite{breiman2001random}，使全部年度产品共享同一组特征与温度的映射关系。模型包含100棵回归树，最大树深为25，叶节点最少样本数为1；每次分裂使用全部候选特征，并采用bootstrap抽样和固定随机种子42。参数组合兼顾全国30 m推理的计算效率与模型容量，树数和最大深度的敏感性在统一空间测试折上进一步评价。完成训练后，从各年度原始30 m光学和地形瓦片中读取同一定义的七项预测变量并逐像元推理，生成随机森林基线产品\rf{}。
+将25年的训练样本合并后，共同训练一个随机森林回归模型\parencite{breiman2001random}，使全部年度产品共享同一组特征与温度的映射关系。模型包含100棵回归树，最大树深为25，叶节点最少样本数为1；每次分裂使用全部候选特征，并采用bootstrap抽样和固定随机种子42。参数组合兼顾全国30 m推理的计算效率与模型容量，树数和最大深度的敏感性在统一空间测试折上进一步评价。完成训练后，从各年度原始30 m光学和地形瓦片中读取同一定义的七项预测变量并逐像元推理，生成随机森林基线产品\rf{}。
 
-模型评价首先采用固定随机种子42将全部样本随机划分为70\%训练集和30\%测试集。为进一步检验空间与时间外推能力，91个4°瓦片依据中心点坐标经$k$-means聚类划分为五个空间折，2000--2024年按连续五年组成五个时间折。空间和时间留块试验依次将一个完整折作为测试集；时空联合试验以同编号空间折与时间折的交集作为测试集，并从训练集中同时排除对应空间折和时间折。评价指标包括$R^2$、Pearson相关系数、RMSE、MAE和Bias。另在相同空间折上比较移除经纬度的模型，并检验不同树数和最大深度组合。正式完整模型的特征重要性采用随机森林归一化不纯度下降计算，用于描述模型对七项预测变量的相对使用程度。
+模型评价首先采用固定随机种子42将全部样本随机划分为70\%训练集和30\%测试集。为进一步检验空间与时间外推能力，91个4°瓦片依据中心点坐标经$k$-means聚类划分为五个空间折，2000--2024年按连续五年组成五个时间折。空间和时间留块试验依次将一个完整折作为测试集；时空联合试验以同编号空间折与时间折的交集作为测试集，并从训练集中同时排除对应空间折和时间折。该设计遵循对空间和时空相关数据采用结构化交叉验证的原则\parencite{roberts2017cv,valavi2019blockcv,meyer2018spatiotemporal}。评价指标包括$R^2$、Pearson相关系数、RMSE、MAE和Bias。另在相同空间折上比较移除经纬度的模型，并检验不同树数和最大深度组合。完整模型的特征重要性采用随机森林归一化不纯度下降计算。
 
 \subsection{低频残差调整}
 
@@ -121,168 +148,151 @@ c_y=\frac{G_{\sigma=10}*(I_y r_y)}{G_{\sigma=10}*I_y}.
 \end{equation}
 高斯核标准差为10个0.01°网格单元，截断半径为$2.5\sigma$；归一化权重使邻近有效残差共同决定缺测边缘附近的调整值。平滑后的调整场以双线性方法重采样至30 m，并叠加到\rf{}：
 \begin{equation}
-T_y^{\mathrm{RA}}=T_y^{\mathrm{RF}}+U(c_y),
+T_y^{\mathrm{CT30}}=T_y^{\mathrm{RF}}+U(c_y),
 \end{equation}
-其中$U(\cdot)$表示重采样。调整场覆盖位置执行残差加法，其余位置保留\rf{}值，使转换前后的有效像元域保持一致。最终产品记为\ra{}。该处理以平滑场修正宽尺度温度偏移，30 m局地差异继续由随机森林基线及其高分辨率预测变量表达。
-
-\subsection{陆地区域定义与质量信息生成}
-
-数据集的科学分析域由中国范围和年度陆地状态共同界定。2000--2021年的30 m水体状态来自JRC Global Surface Water年度记录，2022--2024年采用2021年的水体状态作为统一参考。每个0.01°网格中的陆地比例由30 m陆地像元占比计算，比例达到50\%时标记为年度陆地；稳定陆地域进一步要求2000--2021年各年的陆地比例均达到50\%，用于跨年统计和部分验证试验。为保持91个4°瓦片的规则几何并支持直接镶嵌，核心LST文件保存连续的矩形栅格，年度水体状态与中国范围作为独立辅助层提供。本文的精度和质量指标均在这些辅助层界定的中国陆地域内统计。
-
-配套质量信息包括每个年度通过Mandatory QA的有效八日热合成数量、平滑残差调整场、年度水体和陆地比例、稳定陆地域、数据范围与有效像元统计，以及逐文件SHA-256校验和。各层分别记录热目标观测支持、低频调整幅度和空间适用域，便于使用者按照研究区域与精度需求筛选数据。
+其中$U(\cdot)$表示重采样。调整场覆盖位置执行残差加法，其余位置保留\rf{}值，使转换前后的有效像元域保持一致。残差调整后的结果构成\chinatherm{}的核心LST层。该处理以平滑场修正宽尺度温度偏移，30 m局地差异继续由随机森林基线及其高分辨率预测变量表达。
 
 \begin{figure}[H]
   \centering
-  \figureorplaceholder{../figures/Fig02_workflow/Figure2.pdf}{Figure 2：数据生产流程}{8.0cm}
-  \caption{30 m叶盛期日间LST年度复合产品的生产流程。叶盛期NDVI、WET和NDBSI与Copernicus DEM GLO-30高程、坡度和经纬度共同进入跨年随机森林；19期候选日间八日热合成经质量筛选后的像元中位数提供公里级年度训练目标。随机森林输出\rf{}；聚合后的\rf{}与年度热目标之间的残差经高斯平滑并重采样至30 m后，与\rf{}相加形成\ra{}。水体状态、有效八日热合成数量、调整场和文件校验信息作为配套质量记录发布。}
+  \figureorplaceholder{../figures/Figure2.pdf}{Figure 2：数据生产流程}{8.0cm}
+  \caption{\chinatherm{}的生产流程。由六波段表面反射率合成计算的叶盛期NDVI、WET和NDBSI与Copernicus DEM GLO-30高程、坡度和经纬度共同进入跨年随机森林；19期候选日间八日热合成经质量筛选后的像元中位数提供公里级年度训练目标。随机森林输出\rf{}；聚合后的\rf{}与年度热目标之间的残差经高斯平滑并重采样至30 m后，与\rf{}相加形成\chinatherm{}核心LST层。}
   \label{fig:workflow}
 \end{figure}
 
+\subsection{独立观测评价设计}
+
+\subsubsection{全国Landsat地表温度比较}
+
+全国卫星比较采用Landsat 5 TM、7 ETM+、8 OLI/TIRS和9 OLI-2/TIRS-2的Collection 2 Tier 1 Level-2地表温度\parencite{malakar2018landsatSt,ermida2020landsatGee,usgs2021collection2}。各年同样筛选DOY 150--300，Landsat 5/7使用\texttt{ST\_B6}，Landsat 8/9使用\texttt{ST\_B10}，并按$T=\mathrm{DN}\times0.00341802+149.0-273.15$转换为摄氏度。\texttt{QA\_PIXEL}用于排除填充、扩展云、卷云、云、云影、雪和水体像元，\texttt{QA\_RADSAT}用于排除辐射饱和；严格筛选进一步要求\texttt{ST\_QA}$\leq5$~K且\texttt{ST\_CDIST}$\geq1$~km。每年合并所有可用传感器的有效观测并取中位数，以双线性重采样在120~m网格抽取年度Landsat参照值。
+
+候选点固定于稳定共同陆地域，并按4°瓦片、六个宏区和高程带分层。比较采用\chinatherm{}的3$\times$3有效像元均值，要求Landsat年度窗口内至少有3次严格质控观测，且该邻域水体比例不超过10\%。面积权重用于恢复各分层在稳定共同陆地域中的代表面积，95\%置信区间由2°空间分块bootstrap估计，每年重复2,000次。全部有效样本的1°格网聚合分布和逐年样本支持度分别见补充图~S2和S3。
+
+\subsubsection{无人机热空间结构评价}
+
+无人机评价采用MUSOES-UAV数据集中2020年黑河中游0.4~m热红外亮温正射影像\parencite{zhou2026musoes}，数据集DOI为\href{https://doi.org/10.11888/Terre.tpdc.302412}{10.11888/Terre.tpdc.302412}。大满农田的3景影像获取于7月13日、8月20日和9月19日；花寨子荒漠的4景获取于7月14日、8月20日、9月19日和10月20日；湿地的4景获取于7月14日、8月21日、9月20日和10月21日。
+
+各景影像以面积平均方式聚合到\chinatherm{}网格，并进一步计算90和300~m聚合结果；逐景比较采用空间Pearson相关系数和中心化RMSE。考虑到无人机影像记录单次飞行时刻，而\chinatherm{}表征年度叶盛期复合状态，同一站点的无人机影像先逐景进行空间标准化，再按像元取多日期中位数，并与标准化后的\chinatherm{}空间格局比较。高频分量由原图减去标准差为4个30~m像元的高斯低通场获得。
+
+\subsubsection{地面IRT评价}
+
+地面评价采用\href{https://www.ncdc.ac.cn/}{国家冰川冻土沙漠科学数据中心（NCDC）}发布的黑河与海河自动站逐站逐年观测数据集。各条目按站点名和观测年份归并，时间覆盖见补充表~S1。黑河站点元数据以\textcite{liu2018heiheNetwork}所列23站水文气象观测网为基准；该网络横跨上、中、下游，覆盖高寒草甸、森林、农田、湿地和荒漠等主要下垫面。验证设计参照卫星LST地面验证的通用误差来源和报告原则\parencite{guillevic2018protocol,zhu2021groundValidation}。
+
+自动站时间戳统一按北京时间解释，并依据站点经度转换为地方平均太阳时。主协议在Terra名义过境时间10:30前后30分钟筛选记录；两支IRT均有效时取平均值，两者差异超过5~°C的配对记录剔除，仅一支有效时保留该支观测。窗口内记录先取逐日中位数，再分配至名义起始DOY位于150--300的MOD11A2八日箱；每个八日箱内取有效日均值，随后在年内取中位数。晴空指数由向下短波辐射计算，主分析要求$K\geq0.65$，并要求每个站点年至少有8个有效八日箱。全天空、$K\geq0.60$以及60和90分钟窗口用于敏感性检验。
+
+时间、晴空和八日箱筛选形成145个候选站点年。地面参照一致性质控进一步要求逐日配对IRT绝对差的站点年中位数不超过5~°C；缺少双传感器诊断但满足其余观测条件的站点年予以保留。质控后共有23个站点和131个站点年纳入评价，逐站年诊断见补充图S5--S6和补充表S3。
+
+针对上述站点年，提取同位置\chinatherm{}中心像元及3$\times$3、5$\times$5、9$\times$9和33$\times$33邻域中位数。中心像元用于直接比较，邻域序列用于诊断点式IRT、像元定位、地表异质性与空间支持不匹配对误差的影响\parencite{snyder1997playa,coll2005groundValidation,yu2017validationScheme,martin2019inSitu}。预先规定的3$\times$3邻域为总体汇总尺度，其余尺度用于敏感性分析。评价指标包括Pearson相关系数、RMSE、MAE和Bias；总体不确定度通过以站点为聚类单位的2,000次bootstrap估计，同时报告逐站和子流域结果。完整站点元数据、覆盖与处理规则见补充图S4及补充表S1--S2。
+
 \section{Data Records（数据记录）}
 
-\subsection{30 m核心LST记录}
+\chinatherm{}包含2000--2024年25期年度LST，每期由91个4°瓦片组成，共2,275个单波段GeoTIFF文件，文件合计约611.03~GiB。GeoTIFF采用Deflate压缩；ScienceDB按年份提供25个TAR归档包，并附英文数据说明和数据字典。
 
-核心记录包含2000--2024年共2,275个单波段GeoTIFF文件，即25年、每年91个瓦片，总字节数为656,091,364,135（约611.03~GiB）。标准瓦片覆盖4°×4°，采用EPSG:4326坐标参考系，像元角分辨率约为0.0002695°，典型尺寸为14,844×14,844像元。瓦片编号中的\texttt{X}和\texttt{Y}分别表示4°网格的西侧和南侧整数经纬度。LST以Int16存储，比例因子为0.01~°C，NoData值为$-32768$；物理温度由整数像元值乘以0.01获得。文件命名模式为\texttt{LST\_v2c\_sigma10\_Y\{year\}\_X\{lon\}\_Y\{lat\}\_C\_x100\_int16.tif}，其中\texttt{sigma10}标识本版本采用的低频残差平滑配置。
+GeoTIFF采用EPSG:4326坐标参考系，像元角分辨率约为0.0002695°，以Int16存储；比例因子为0.01~°C，NoData值为$-32768$。文件名记录产品年份以及瓦片西侧和南侧的整数经纬度，详细字段见随数据发布的英文数据字典。
 
-\subsection{质量层、水体掩膜与辅助记录}
-
-质量信息按照各变量的原生支持尺度发布。25期0.01°平滑调整场以Float32摄氏度存储；25期有效八日热合成数量记录每个网格进入年度中位数计算的候选周期数，取值范围为0--19。2000--2021年逐年提供91个30 m水体/范围辅助瓦片，共2,002个文件；2022--2024年的陆地分析层在元数据中指向2021年水体状态来源。0.01°分析掩膜组包含中国范围、年度陆地比例、年度陆地掩膜、水体或范围外比例，以及2000--2021年稳定陆地域。另提供25期由30 m核心瓦片聚合得到的0.01°快速访问LST，服务于全国预览、轻量统计和工作流测试。
-
-\begin{table}[H]
-\centering
-\caption{数据发布包中的核心记录、质量信息和辅助文件。}
-\label{tab:data-records}
-\small
-\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash}p{3.8cm}>{\raggedright\arraybackslash}p{1.7cm}>{\raggedright\arraybackslash}p{2.4cm}X}
-\toprule
-记录组 & 文件数 & 空间尺度 & 主要内容 \\
-\midrule
-核心LST & 2,275 & 30 m & 2000--2024年RA-LST，91个4°瓦片/年 \\
-年度水体/范围辅助层 & 2,002 & 30 m & 2000--2021年逐瓦片水体与陆地分析标识 \\
-分析掩膜 & 80 & 0.01° & 中国范围、年度陆地比例与掩膜、稳定陆地域 \\
-低频调整场 & 26 & 0.01° & 25期sigma=10调整场及汇总表 \\
-目标观测支持 & 25 & 0.01° & 2000--2024年有效八日热合成数量 \\
-质量与验证表格 & 27 & 表格 & 瓦片、年度和各类技术验证统计 \\
-快速访问LST & 25 & 0.01° & 30 m核心产品的年度有效像元平均版本 \\
-元数据、manifest与示例 & 10 & 文档/表格/代码 & 数据字典、逐文件清单、读取示例和发布说明 \\
-\midrule
-合计 & 4,470 & --- & 具有唯一相对路径和SHA-256校验记录的全部发布文件 \\
-\bottomrule
-\end{tabularx}
-\end{table}
-
-\subsection{文件组织、元数据与完整性信息}
-
-发布目录由六个一级分组构成：\texttt{data}按年份保存核心LST，\texttt{quality}保存质量信息，\texttt{quick\_access}保存快速访问产品，\texttt{manifests}、\texttt{metadata}和\texttt{examples}分别保存清单、说明文档和读取示例。完整清单共记录4,470个文件，其中包括2,275个核心温度文件、2,160个质量文件和25个年度快速访问文件；其余文件为manifest、元数据和读取示例（表~\ref{tab:data-records}）。逐文件manifest记录核心数据的年份、瓦片编号、空间范围、栅格尺寸、数据类型、文件字节数、对象存储地址和SHA-256值。发布包中的每个文件均具有唯一相对路径和对应SHA-256校验记录。2024年全国产品及其在川西和北京地区的“4°瓦片--30 m局地窗口”记录见图~\ref{fig:data-records}。
+数据的科学范围为中国陆地区域。核心文件保留规则矩形瓦片以便直接镶嵌，因此水体及边缘瓦片中的中国范围外区域可能包含模型输出值，陆地统计时需结合相应的国界与陆地范围。图~\ref{fig:data-records}展示了2000年和2024年的全国分布，以及川西和北京地区由4°瓦片逐级放大至30~m局地纹理的空间记录。
 
 \begin{figure}[H]
   \centering
-  \figureorplaceholder{../figures/Fig03_data_records/outputs/Figure3_RA_LST_multiscale_data_record.pdf}{Figure 3：RA-LST多尺度数据记录}{7.4cm}
-  \caption{2024年RA-LST的全国、瓦片和局地记录。a，正式30 m产品聚合至0.01°后的全国概览，黑框标出两组代表性瓦片；b，川西X100\_Y30正式4°瓦片，黑框标出山地--四川盆地过渡窗口；c，该窗口的30 m RA-LST；d，北京--燕山X116\_Y38正式4°瓦片，黑框标出北京城区--山地过渡窗口；e，该窗口的30 m RA-LST。}
+  \figureorplaceholder{../figures/Figure3.pdf}{Figure 3：ChinaTherm30多尺度数据记录}{7.4cm}
+  \caption{2000年和2024年\chinatherm{}的全国记录与多尺度空间对比。a、h，分别为2000年和2024年0.01°全国概览；b--d和e--g，依次为2000年川西X100\_Y30与北京--燕山X116\_Y38的4°瓦片、0.75°局地窗口和0.26°放大窗口；i--k和l--n为2024年相同位置与尺度的对应视图。}
   \label{fig:data-records}
 \end{figure}
 
 \section{Technical Validation（技术验证）}
 
-\subsection{产品完整性与输入观测支持}
-
-对象清单和SHA-256校验确认25个年度均完整包含91个核心瓦片，2,275个“年份--瓦片”组合均具有唯一文件。批量核查覆盖GeoTIFF几何信息、数据类型、比例因子、NoData、空间范围和文件大小。\rf{}与\ra{}的逐瓦片有效域完全一致，残差调整过程保持了原有栅格边界和像元覆盖。
-
-年度目标支持度由每个像元通过Mandatory QA的有效八日热合成数量记录，理论候选上限为19。图~\ref{fig:study-area}报告其多年空间格局、逐年分布和低数据支持面积比例，并区分热目标支持度与30 m预测变量覆盖。文件完整性核查覆盖全部规则瓦片，精度指标统一在中国陆地辅助层界定的空间域内计算。
-
 \subsection{RF模型泛化能力与参数敏感性}
 
-随机70/30测试集中，预测值与目标值的$R^2$为0.945，Pearson $r$为0.972；RMSE和MAE分别为2.140~°C和1.559~°C。考虑空间自相关后，五折空间留块验证的pooled Pearson $r$为0.904，RMSE为3.967~°C，MAE为2.922~°C。时间留组验证的RMSE为2.218~°C，同时留出新地区和新年份的时空联合验证RMSE为3.983~°C。瓦片尺度空间留块RMSE的中位数为3.448~°C，范围为1.294--7.802~°C，较高值主要分布在东北边缘和部分西北瓦片。移除经纬度后，空间留块RMSE增至4.409~°C。随机划分表征样本内插条件，空间和时空留块结果则刻画模型向新区域和新年份推广时的泛化能力。完整模型中DEM、NDBSI和NDVI的特征重要性分别为0.414、0.290和0.126，其余变量共同贡献剩余0.170；这些数值描述模型对预测变量的相对使用程度。
+随机70/30测试集中，预测值与目标值的$R^2$为0.945，Pearson $r$为0.972；RMSE和MAE分别为2.140~°C和1.559~°C。考虑空间自相关后，五折空间留块验证的汇总$R^2$为0.809，Pearson $r$为0.904，RMSE为3.967~°C，MAE为2.922~°C。时间留组验证的$R^2$和RMSE分别为0.940和2.218~°C；同时留出新地区和新年份的时空联合验证对应为0.806和3.983~°C。瓦片尺度空间留块RMSE的中位数为3.448~°C，范围为1.294--7.802~°C，较高值主要分布在NEC边缘和ANW部分瓦片。移除经纬度后，空间留块RMSE增至4.409~°C。随机划分表征样本内插条件，空间和时空留块结果则刻画模型向新区域和新年份推广时的泛化能力。完整模型中DEM、NDBSI和NDVI的特征重要性分别为0.414、0.290和0.126，其余变量共同贡献剩余0.170；这些数值描述模型对预测变量的相对使用程度。
 
-在相同空间测试折上，100、300和500棵树以及最大深度15、25和完全生长树的五种配置，pooled RMSE相差0.0153~°C。100棵树、最大深度25配置取得最低RMSE（3.9666~°C），其余配置的总拟合时间为该配置的1.99--4.75倍。图~\ref{fig:rf-validation}综合报告分块泛化能力和模型容量敏感性。
+在相同空间测试折上，100、300和500棵树以及最大深度15、25和完全生长树的五种配置，汇总RMSE相差0.0153~°C。100棵树、最大深度25配置取得最低RMSE（3.9666~°C），其余配置的总拟合时间为该配置的1.99--4.75倍。图~\ref{fig:rf-validation}综合报告分块泛化能力和模型容量敏感性。
 
 \begin{figure}[H]
   \centering
-  \figureorplaceholder{../figures/Fig04_rf_validation/outputs/Figure4_RF_generalization_parameter_sensitivity.pdf}{Figure 4：RF泛化与参数敏感性}{8.0cm}
-  \caption{随机森林基线模型的泛化能力与配置敏感性。a，随机70/30测试集中公里级年度热目标与随机森林预测的密度分布及1:1线；b，正式完整模型中七个预测变量基于归一化不纯度下降的随机森林特征重要性；c，随机70/30、空间留块、时间留块和时空联合留块的误差与Pearson相关系数，实心圆、空心方块和菱形分别为RMSE、MAE和Bias，淡色圆点为逐折RMSE；d，五折空间留块验证在91个4°瓦片上的RMSE分布；e，五种树数和最大深度配置在相同空间测试折上的RMSE，黑色菱形为pooled结果；f，各候选配置相对于100棵树、最大深度25配置的计算成本和pooled RMSE差异，计算成本以总模型拟合时间之比衡量。}
+  \figureorplaceholder{../figures/Figure4.pdf}{Figure 4：RF泛化与参数敏感性}{8.0cm}
+  \caption{随机森林基线模型的泛化能力与配置敏感性。a，随机70/30测试集中公里级年度热目标与随机森林预测的密度分布及1:1线；b，正式完整模型中七个预测变量基于归一化不纯度下降的随机森林特征重要性；c，随机70/30、空间留块、时间留块和时空联合留块的RMSE、MAE、Bias和$R^2$，实心圆、空心方块和菱形分别为汇总RMSE、MAE和Bias，小圆点为逐折RMSE；d，五折空间留块验证在91个4°瓦片上的RMSE分布；e，五种树数和最大深度配置在相同空间测试折上的RMSE，黑色菱形为汇总结果；f，各候选配置相对于100棵树、最大深度25配置的计算成本和汇总RMSE差异，计算成本以总模型拟合时间之比衡量。}
   \label{fig:rf-validation}
 \end{figure}
 
-\subsection{残差调整及公里尺度一致性}
+\subsection{残差调整的尺度一致性与30 m细节保持}
 
-将\rf{}和\ra{}聚合至共同0.01°网格后，与公里级年度热目标比较。2000--2024年全部有效稳定陆地网格－年份合并统计中，RMSE由2.101~°C降至1.414~°C，降低32.7\%；Pearson相关系数由0.973升至0.988，平均偏差由0.034~°C降至0.003~°C。逐年RMSE序列和六个宏区汇总均表明这一改善贯穿时间和区域维度。这组指标量化了低频残差调整在生产链目标尺度上的一致性变化；独立卫星热红外和地面观测比较见后续小节。
+将\rf{}和\chinatherm{}聚合至共同0.01°网格后，与公里级年度热目标比较。对2000--2024年稳定共同陆地域的年度网格值进行合并统计后，RMSE由2.101~°C降至1.414~°C，降低32.7\%；Pearson相关系数由0.973升至0.988，平均偏差由0.034~°C降至0.003~°C。逐年RMSE序列和六个宏区汇总均表明，低频残差调整在所有年份和宏区均提高了公里尺度与年度热目标的一致性。
 
-sigma=5、10、20和40的敏感性分析表明，较小sigma产生更局地化、梯度更高的调整场，较大sigma提高平滑度但减弱公里尺度误差降低。sigma=10的RMSE为1.414~°C，调整场平均绝对梯度为0.0377，在尺度一致性和调整场平滑度之间处于中间位置。图~\ref{fig:residual-adjustment}同时报告年度、区域和参数尺度结果。
+$\sigma$为5、10、20和40的敏感性分析表明，较小$\sigma$产生更局地化、梯度更高的调整场，较大$\sigma$提高平滑度但减弱公里尺度误差降低。$\sigma=10$时的RMSE为1.414~°C，调整场平均绝对梯度为0.0377，在尺度一致性和调整场平滑度之间处于中间位置。图~\ref{fig:residual-adjustment}同时报告年度、区域和参数尺度结果。
 
 \begin{figure}[H]
   \centering
-  \figureorplaceholder{../figures/Fig05_residual_adjustment/outputs/Figure5_residual_adjustment_MODIS_consistency.pdf}{Figure 5：残差调整与尺度一致性}{8.2cm}
-  \caption{低频残差调整及公里尺度一致性。a--b，2000--2024年稳定陆地网格－年份上，\rf{}和\ra{}与公里尺度年度热目标的面积加权密度分布，虚线为1:1线；c，两套产品的全国逐年RMSE；d，六个宏区的总体RMSE及调整后的降低比例；e，sigma=5、10、20和40条件下的全国平均公里尺度RMSE与调整场平均绝对梯度，星号标出sigma=10，图内给出四个局地30 m窗口的高频相关范围；f，2024年青藏高原东缘至四川盆地区域的\rf{}、公里级年度热目标、原始残差及sigma=10平滑调整场。}
+  \figureorplaceholder{../figures/Figure5.pdf}{Figure 5：残差调整与尺度一致性}{8.2cm}
+  \caption{低频残差调整及公里尺度一致性。a--b，基于2000--2024年稳定共同陆地域的年度网格值，展示\rf{}和\chinatherm{}与公里级年度热目标的面积加权密度分布，虚线为1:1线；c，两套产品的全国逐年RMSE；d，TP、NEC、NCLP、ANW、HSE和SWM的总体RMSE及调整后的降低比例；e，$\sigma$为5、10、20和40时的全国平均公里尺度RMSE与调整场平均绝对梯度，星号标出$\sigma=10$；f，2024年TP东缘至四川盆地区域的\rf{}、公里级年度热目标、原始残差及$\sigma=10$平滑调整场。}
   \label{fig:residual-adjustment}
+\end{figure}
+
+为检验公里尺度残差校准是否改变30 m空间结构，我们选取2024年的成都、武汉、川西山地和乌鲁木齐--天山山前区，覆盖城市密集区、农田与水系、强地形起伏和干旱山前区。四个窗口的平均调整量分别为$+1.029$、$+1.320$、$-0.919$和$-1.191$~°C，调整场的空间标准差为0.273--0.613~°C。调整后，各窗口相对于双线性重采样公里级年度热目标的RMSE降低0.267--0.522~°C，表明校准方向和幅度随区域温度背景而变化。
+
+与此同时，四区\rf{}与\chinatherm{}高频空间分量的Pearson相关系数为0.999995--0.999999，高频标准差比为0.999998--1.000006。局部剖面进一步显示，两套30 m结果共享相同的短距离起伏，而调整主要表现为随空间缓慢变化的温度平移；城市边界、农田、水系、河谷和地形纹理均保持稳定（图~\ref{fig:spatial-detail}）。因此，低频校准改善了目标尺度的一致性，同时基本保持了随机森林基线所表达的30 m空间结构。
+
+\begin{figure}[H]
+  \centering
+  \figureorplaceholder{../figures/Figure6.pdf}{Figure 6：30 m空间结构评价}{8.2cm}
+  \caption{低频残差调整前后的30 m空间结构。a，2024年成都、武汉、川西山地和天山山前区的\rf{}、平滑调整场和\chinatherm{}；b，按2$\times$2排列的四个窗口中心剖面，比较\rf{}、\chinatherm{}和双线性重采样公里级年度热目标。四区\rf{}与\chinatherm{}高频分量的Pearson相关系数为0.999995--0.999999，高频标准差比为0.999998--1.000006。}
+  \label{fig:spatial-detail}
 \end{figure}
 
 \subsection{全国Landsat地表温度比较}
 
-独立卫星比较采用Landsat Collection 2 Level-2地表温度，对2000--2024年全部年度开展全国空间分层抽样。候选点固定于稳定陆地域，并按4°瓦片、六个宏区和高程带分层；各点使用严格云、阴影、雪和辐射饱和质量筛选，要求年度窗口内至少3次有效Landsat观测，同时要求\ra{}的3×3像元邻域具有完整支持且水体比例不超过10\%。面积权重用于恢复各分层在稳定陆地域中的代表面积，95\%置信区间由2°空间分块bootstrap估计，每年重复2,000次。该设计使不同年份共享一致的空间抽样框架，同时降低邻近样本空间自相关对不确定度估计的影响。
-
-25个年度的有效样本数为10,721--17,786，代表陆地面积约为489万--837万~km$^2$。\ra{}与Landsat年度复合值的全国空间Pearson相关系数中位数为0.874，年度RMSE和中心化RMSE中位数分别为5.019和4.355~°C，平均偏差的年度中位数为$-2.115$~°C。六个宏区共形成150个“宏区--年份”组合。西南山地和湿润东南的中心化RMSE中位数分别为3.389和3.495~°C，青藏高原为5.073~°C；干旱西北和东北地区的空间相关中位数分别为0.849和0.841。相关系数同时受到区域温度动态范围影响，而绝对RMSE包含年度复合定义、过境时刻、传感器发射率方案和空间支持尺度差异，因此图~\ref{fig:satellite-comparison}并列报告空间相关、RMSE、中心化RMSE及其空间分块置信区间。
+25个年度的有效样本数为10,721--17,786，代表陆地面积约为489万--837万~km$^2$。\chinatherm{}与Landsat年度复合值的全国空间Pearson相关系数中位数为0.874，年度RMSE和中心化RMSE中位数分别为5.019和4.355~°C，平均偏差的年度中位数为$-2.115$~°C。六个宏区共形成150个“宏区--年份”组合。SWM和HSE的中心化RMSE中位数分别为3.389和3.495~°C，TP为5.073~°C；ANW和NEC的空间相关中位数分别为0.849和0.841。如图~\ref{fig:satellite-comparison}所示，全国逐年空间相关总体稳定，中心化RMSE低于绝对RMSE，六个宏区之间的差异在25年序列中持续存在。
 
 \begin{figure}[H]
   \centering
-  \figureorplaceholder{../figures/Fig06_ra_lst_independent_validation/outputs/Figure6_RA_LST_Landsat_independent_validation.pdf}{Figure 6：全国Landsat地表温度比较}{8.2cm}
-  \caption{2000--2024年\ra{}与Landsat Collection 2地表温度的全国空间分层比较。a，全国年度面积加权空间Pearson相关系数，阴影为2°空间分块bootstrap的95\%置信区间；b，全国年度RMSE和中心化RMSE及其95\%置信区间，中心化RMSE在移除两套数据的全国平均差异后计算；c，六个宏区年度空间Pearson相关系数的25年分布；d，六个宏区年度中心化RMSE的25年分布。c和d中的点表示单个年份，箱体表示四分位距和中位数。竖向虚线标示Landsat传感器组合发生变化的年份边界。}
+  \figureorplaceholder{../figures/Figure7.pdf}{Figure 7：全国Landsat地表温度比较}{8.2cm}
+  \caption{2000--2024年\chinatherm{}与Landsat Collection 2地表温度的全国空间分层比较。a，全国年度面积加权空间Pearson相关系数，阴影为2°空间分块bootstrap的95\%置信区间；b，全国年度RMSE和中心化RMSE及其95\%置信区间，中心化RMSE在移除两套数据的全国平均差异后计算；c，TP、NEC、NCLP、ANW、HSE和SWM年度空间Pearson相关系数的25年分布；d，六宏区年度中心化RMSE的25年分布。c和d中的点表示单个年份，箱体表示四分位距和中位数。竖向虚线标示Landsat传感器组合发生变化的年份边界。}
   \label{fig:satellite-comparison}
-\end{figure}
-
-\subsection{30 m空间结构与细节保留}
-
-成都、武汉、川西山地和乌鲁木齐--天山山前区用于检验残差调整对30 m结构的影响。四区\rf{}与\ra{}的高频空间分量相关系数均高于0.99999，高频标准差比约为1.000。局部剖面显示，调整主要表现为随空间缓慢变化的温度平移，城市边界、农田、河谷和地形纹理保持稳定（图~\ref{fig:spatial-detail}）。
-
-\begin{figure}[H]
-  \centering
-  \figureorplaceholder{../figures/Fig07_spatial_detail/outputs/Figure7_spatial_detail_validation.pdf}{Figure 7：30 m空间结构评价}{8.2cm}
-  \caption{低频残差调整前后的30 m空间结构。a，2024年成都、武汉、川西山地和天山山前区的\rf{}、平滑调整场和\ra{}；b，四个窗口中心剖面的\rf{}、\ra{}和双线性重采样公里级年度热目标；c，四区\rf{}与\ra{}高频分量的Pearson相关，高频标准差比范围标于图内。}
-  \label{fig:spatial-detail}
 \end{figure}
 
 \subsection{独立无人机热空间结构评价}
 
-2020年黑河中游0.4 m无人机热红外亮温数据覆盖大满农田、花寨子荒漠和湿地，共包含11景飞行观测。无人机瞬时观测与年度复合产品具有不同时间支持，比较因此聚焦空间相关、中心化RMSE和多日期标准化纹理。\ra{}在30、90和300~m尺度的逐景空间相关中位数分别为0.494、0.540和0.553，中心化RMSE中位数分别为2.450、1.613和1.231~°C。三个区域多日期标准化合成与\ra{}的空间相关分别为0.596、0.713和0.455。\rf{}与\ra{}的各项空间指标接近，与低频调整保留基线局地纹理的设计一致（图~\ref{fig:uav-validation}）。
+在11景无人机影像中，随着共同聚合尺度由30~m增至300~m，逐景空间相关中位数由0.494升至0.553，中心化RMSE中位数由2.450~°C降至1.231~°C。尺度增大后的一致性提升表明，\chinatherm{}较稳定地表达了田块和景观尺度的冷热组织，而最细尺度比较更易受到瞬时地表状态和空间配准差异的影响。大满农田、花寨子荒漠和湿地的多日期标准化合成相关分别为0.596、0.713和0.455，高频分量相关分别为0.546、0.477和0.387，显示产品对局地热纹理的表达随下垫面及空间频率而变化（图~\ref{fig:uav-validation}）。
 
 \begin{figure}[H]
   \centering
-  \figureorplaceholder{../figures/Fig08_uav_validation/outputs/Figure8_UAV_thermal_structure.pdf}{Figure 8：独立无人机热空间结构评价}{7.4cm}
-  \caption{黑河中游无人机热红外亮温与30 m年度LST产品的空间结构比较。a，大满农田、花寨子荒漠和湿地的多日期标准化无人机热纹理及对应\ra{}，各日期影像空间标准化后按像元取中位数；b--c，11景无人机影像在30、90和300~m尺度下与\rf{}、\ra{}的空间Pearson相关和中心化RMSE，浅色点为逐景结果，实心点和误差线为中位数和四分位距；d，三类下垫面的多日期合成纹理及其高频分量与\rf{}、\ra{}的Pearson相关。}
+  \figureorplaceholder{../figures/Figure8.pdf}{Figure 8：独立无人机热空间结构评价}{7.4cm}
+  \caption{黑河中游无人机热红外亮温与\chinatherm{}的空间结构比较。a，大满农田、花寨子荒漠和湿地的多日期标准化无人机热纹理及对应\chinatherm{}，各日期影像空间标准化后按像元取中位数；b--c，11景无人机影像在30、90和300~m尺度下与\chinatherm{}的空间Pearson相关和中心化RMSE，浅色点为逐景结果，实心点和误差线为中位数和四分位距；d，三类下垫面的多日期合成纹理及其高频分量与\chinatherm{}的Pearson相关。}
   \label{fig:uav-validation}
 \end{figure}
 
 \subsection{地面观测验证与尺度代表性}
 
-2014年WATERNET地面SI-111红外辐射温度提供了与产品物理量最接近的直接地面证据。地方太阳时10:30前后30分钟、每节点至少60个有效观测日条件下，\rf{}的$r$、MAE和RMSE分别为0.755、2.751和3.177~°C，\ra{}分别为0.857、1.445和1.811~°C。该网络代表黑河上游的小足迹地表辐射温度条件，全国尺度评价由FLUXNET多站点和独立卫星热红外比较进一步补充。
-
-FLUXNET中国站点通过实测上下行长波辐射计算地表辐射温度。主晴空方案保留34个站点和240个站点年，\rf{}与\ra{}的RMSE分别为5.620和5.485~°C，Pearson相关分别为0.699和0.718；\ra{}在57.1\%的站点年中具有更小绝对误差。去除站点多年均值后的年际异常相关由0.137升至0.362。2024年黑河五站、五道梁浅层土温网络和黄河源区成对土温传感器进一步表明，小足迹地面观测、30 m像元和公里级热目标之间存在显著代表性差异。浅层土温结果用于量化空间支持尺度和观测物理量差异，地表皮肤温度的直接评价则以辐射温度观测为主。
+地面评价包含23个站点和131个站点年，覆盖2008--2024年中的16个年份。其中21站来自黑河上、中、下游观测网，馆陶和大兴站提供两个海河流域外部点位。\chinatherm{} 3$\times$3邻域中位数与年度地面IRT复合值的Pearson相关系数为0.840，RMSE、MAE和Bias分别为5.397、4.135和0.560~°C。以站点为聚类单位的95\% bootstrap区间分别为$r$的0.681--0.931、RMSE的3.640--6.788~°C和Bias的$-1.960$--2.852~°C，表明总体空间排序较为稳定，而绝对误差仍受站点间差异影响（图~\ref{fig:ground-validation}）。
 
 \begin{figure}[H]
   \centering
-  \figureorplaceholder{../figures/Fig09_ground_validation/outputs/Figure9_ground_validation.pdf}{Figure 9：地面观测验证与尺度代表性}{8.5cm}
-  \caption{地面观测比较及尺度代表性。a，FLUXNET、WATERNET、HiWATER、黄河源区浅层土温网和五道梁浅层土温网的空间覆盖；b，2014年WATERNET 12个节点的地表辐射温度与\rf{}、\ra{}；c，FLUXNET 34站240个站点年的地表辐射温度比较，图内同时给出去除各站多年均值后的年际异常指标；d，FLUXNET比较结果在晴空阈值、30 m邻域大小和地表发射率设定下的RMSE范围，符号为主设定，横线为全部受检设定；e，2024年HiWATER五站中\rf{}、\ra{}相对地面观测的误差与同位置公里级年度热目标误差，图内RMSE为30 m产品与年度热目标之间的差异；f，黄河源区相距2--16~m的成对约5~cm浅层土温传感器在相同和不同地表覆盖下的季节中位绝对差，黑线和数字为组内中位数。f中的浅层土温量化点观测在不同地表覆盖下的空间代表性。}
+  \figureorplaceholder{../figures/Figure9.pdf}{Figure 9：NCDC地面IRT独立评价}{8.5cm}
+  \caption{基于NCDC自动站地表红外辐射温度的\chinatherm{}独立评价，所有面板均采用通过地面参照一致性质控的131个站点年。a，23个站点的空间分布，点大小表示纳入评价的站点年数；b，\chinatherm{} 3$\times$3邻域中位数与地面IRT年度复合值的比较，框内为总体指标及站点聚类bootstrap的95\%区间；c，中心像元至33$\times$33邻域的RMSE和MAE，两类标记在各邻域中心两侧轻微错开以便辨识；d，逐站3$\times$3残差的平均Bias和四分位距，点大小表示站点年数。a和d使用补充表~S1的Site ID；黑河编号1--23沿用\textcite{liu2018heiheNetwork}的Table~1，H1和H2分别表示海河流域的馆陶与大兴。逐年覆盖、地面双IRT一致性质控以及质控前后的结果比较见补充图S4--S7。}
   \label{fig:ground-validation}
 \end{figure}
 
+空间支持敏感性呈连续变化。中心像元以及3$\times$3、5$\times$5、9$\times$9和33$\times$33邻域中位数的相关系数分别为0.820、0.840、0.848、0.851和0.832，RMSE分别为5.778、5.397、5.248、5.130和5.181~°C，Bias分别为0.889、0.560、0.508、0.348和$-0.756$~°C。邻域扩大后误差小幅下降，说明点式IRT、像元定位和周围异质地表之间存在空间代表性差异。
+
+分区结果进一步显示这种异质性：上游、中游和下游中心像元RMSE分别为3.533、5.750和7.930~°C，Bias分别为$-0.922$、$-1.946$和6.224~°C；两个海河站的中心像元RMSE为3.511~°C。3$\times$3逐站Bias从黑河遥感站的$-9.517$~°C到农田站的+10.641~°C，残差按站点去均值后的RMSE为2.448~°C。由此可见，合并误差中相当部分来自不同站点之间持续存在的温度偏差，而非所有站点年的均匀失配。
+
 \section{Usage Notes（使用说明）}
 
-本数据每年提供一期固定筛选窗口复合值，变量定义为“名义起始DOY位于150--300之间、通过Mandatory QA的Terra日间八日LST合成值的像元中位数”。标准序列包含19个候选八日周期，起始DOY为153--297，最后一期可能延伸至DOY 304。该记录适用于年度叶盛期日间热背景比较；全年或全天热状态研究可选用具有相应时间定义的产品。不同像元的有效周期数量有所差异，跨区域比较宜结合有效八日热合成数量质量层。
+本数据每年提供一期固定筛选窗口复合值，变量定义为“名义起始DOY位于150--300之间、通过Mandatory QA的Terra日间八日LST合成值的像元中位数”。标准序列包含19个候选八日周期，起始DOY为153--297，最后一期可能延伸至DOY 304。该记录适用于年度叶盛期日间热背景比较；全年或全天热状态研究可选用具有相应时间定义的产品。
 
-核心数据面向中国陆地热环境应用。使用者可将年度水体/范围辅助层应用于规则瓦片，以复现本文技术指标采用的空间域。2022--2024年辅助层使用2021年水体状态作为统一参考；涉及近年水体新增或消失的研究宜结合相应年份的专门水体资料更新分析域。
+核心数据面向中国陆地热环境应用。规则瓦片中的水体及中国范围外区域可能保留数值，区域统计需结合与研究时期相适应的国界和陆地掩膜；涉及水体新增或消失的研究还需采用相应年份的水体资料。
 
-30 m网格表达由高分辨率光学、地形和空间预测变量推断的地表异质性，公里尺度残差调整约束区域低频热背景。该尺度定义宜理解为模型输出和空间推断尺度。高海拔、强辐射、训练样本支持较弱及地表快速变化区域可结合观测支持、调整场和区域参考数据开展针对性质量评估。
+\chinatherm{}的30 m空间格局由高分辨率光学、地形和位置变量推断，区域低频热背景由公里尺度年度热目标约束。高海拔、强辐射、训练样本支持较弱及地表快速变化区域可结合独立观测和区域参考数据开展针对性评价。地面IRT评价的23个站点中有21个位于黑河流域，主要表征西北干旱区、高寒区和绿洲景观中的站点尺度一致性，其他气候区尚需更多长期地面观测补充。
 
 \section{Data Availability（数据可用性）}
 
-核心数据已整理为Google Earth Engine集合：
+\chinatherm{}核心数据已整理为Google Earth Engine集合：
 \begin{center}
 \url{projects/ee-liangerzheng377/assets/China_30m_RA_LST_2000_2024_v1}。
 \end{center}
-在线交互式预览可通过\url{https://liangerzheng377.users.earthengine.app/view/ralstexplorerv1}访问。完整的25年GeoTIFF文件、质量信息、manifest和SHA-256校验记录已建立ScienceDB审稿阶段私有数据记录；仓储完成技术审核后将启用长期公开访问地址和数据DOI。Google Earth Engine集合用于在线浏览和云端分析，ScienceDB归档保存可独立下载和校验的正式发布文件。
+在线交互式预览可通过\href{https://liangerzheng377.users.earthengine.app/view/ralstexplorerv1}{交互式预览应用}访问。完整的25年GeoTIFF文件及英文数据说明已提交ScienceDB，目前处于技术审核阶段；通过审核后将在本文补充长期公开访问地址和数据DOI。Google Earth Engine集合用于在线浏览和云端分析，ScienceDB归档保存可独立下载的正式发布文件。
 
 \section{Code Availability（代码可用性）}
 
-随机森林训练、30 m推理、残差调整、质量层构建、完整性核查和技术验证代码已按生产阶段整理。与数据正式发布对应的版本将通过公开代码仓库和带版本号的归档记录提供，并包含软件环境、输入数据清单、参数配置以及从单瓦片输入到最终\ra{}和质量层输出的最小复现示例。
+随机森林训练、30 m推理、残差调整和技术验证代码已按生产阶段整理。与数据正式发布对应的版本将通过公开代码仓库和带版本号的归档记录提供，并包含软件环境、输入数据清单、参数配置以及从单瓦片输入到\chinatherm{}核心LST输出的最小复现示例。
 
 \printbibliography[title={References（参考文献）}]
 
@@ -293,6 +303,6 @@ E.L.负责研究构思、方法设计、软件实现、数据生产、技术验�
 作者声明不存在利益冲突。
 
 \section*{Acknowledgements（致谢）}
-作者感谢中国地球观测数据立方体团队提供30 m无缝年度叶盛期Landsat合成数据。MODIS和Landsat数据由NASA及USGS开放档案提供；ASTER和ECOSTRESS数据由NASA Earthdata提供；JRC Global Surface Water数据由欧盟委员会联合研究中心提供。地形变量基于Copernicus WorldDEM-30（© DLR e.V. 2010--2014 and © Airbus Defence and Space GmbH 2014--2018, provided under COPERNICUS by the European Union and ESA; all rights reserved）。作者感谢WATERNET、HiWATER、FLUXNET及相关观测团队公开地表辐射与气象观测资料，并感谢阿里云和Google Earth Engine提供的数据处理环境。
+作者感谢中国地球观测数据立方体团队提供30 m无缝年度叶盛期Landsat合成数据。MODIS和Landsat数据由NASA及USGS开放档案提供；JRC Global Surface Water数据由欧盟委员会联合研究中心提供。地形变量基于Copernicus WorldDEM-30（© DLR e.V. 2010--2014 and © Airbus Defence and Space GmbH 2014--2018, provided under COPERNICUS by the European Union and ESA; all rights reserved）。作者感谢国家冰川冻土沙漠科学数据中心、黑河综合观测网、HiWATER及相关观测团队公开地表红外辐射、气象与无人机热红外资料，并感谢阿里云和Google Earth Engine提供的数据处理环境。
 
 \end{document}
