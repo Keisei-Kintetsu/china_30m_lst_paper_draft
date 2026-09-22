@@ -1,0 +1,116 @@
+\section{Methods}
+
+\subsection{Study domain and target definition}
+
+The record covers land areas across China from 2000 to 2024. Outputs follow the 4° latitude--longitude tiling scheme of the China Earth Observation Data Cube, with 91 tiles per year (Fig.~\ref*{fig:study-area}a). Annual thermal targets were derived from the \texttt{LST\_Day\_1km} and \texttt{QC\_Day} bands of the Earth Engine collection \texttt{MODIS/061/MOD11A2}. MOD11A2 V061 provides the simple average of the corresponding daily MOD11A1 LST values within each eight-day period on an approximately 1 km grid \parencite{lpdaacMod11a2,wan2002modisValidation,wan2008modis}.
+
+For each year, images were selected by nominal start dates within DOY 150--300. Pixels were retained when the two least significant bits of \texttt{QC\_Day} were 00 or 01, indicating that LST was produced with good or other quality, respectively. In the standard eight-day sequence, this selection corresponds to 19 composites starting on DOY 153, 161, \ldots, 297; the last eight-day window may extend to DOY 304. Values in \texttt{LST\_Day\_1km} were multiplied by 0.02 to obtain kelvin and then converted to degrees Celsius by subtracting 273.15. The annual target was the pixelwise median of the retained eight-day mean LST values. Each annual value therefore summarizes the median thermal state represented by up to 19 candidate eight-day periods; hereafter, it is termed the kilometre-scale annual thermal target.
+
+National statistics were restricted to land within China. The 30 m non-water pixels from JRC Global Surface Water were aggregated to the 0.01° grid, and cells with a land fraction of at least 50\% were defined as land for that year. Cells meeting this threshold in every year during 2000--2021 formed the common stable-land domain. Annual land status for 2022--2024 followed the 2021 result. Cross-year statistics and independent satellite comparisons used this common stable-land domain.
+
+For regional statistics, the China eco-geographical regionalization was aggregated into six macroregions: the Tibetan Plateau (TP), Northeast China (NEC), North China--Loess Plateau (NCLP), Arid Northwest (ANW), Humid Southeast (HSE) and Southwest Mountains (SWM). Their boundaries are shown in Supplementary Fig.~S1. These abbreviations are used throughout the text and figures.
+
+\subsection{Input data}
+
+The annual seamless leaf-on Landsat composites from the China Earth Observation Data Cube provide 30 m surface reflectance in six bands: blue, green, red, near-infrared and two shortwave-infrared bands \parencite{cai2025ceodc}. Let the cross-sensor-harmonized, TM-equivalent reflectances be $\rho_{\mathrm{B}}$, $\rho_{\mathrm{G}}$, $\rho_{\mathrm{R}}$, $\rho_{\mathrm{NIR}}$, $\rho_{\mathrm{SWIR1}}$ and $\rho_{\mathrm{SWIR2}}$. The normalized difference vegetation index (NDVI) and tasseled-cap wetness (WET) were calculated as follows \parencite{tucker1979ndvi,crist1985tasseled,zha2003ndbi,xu2008ibi}:
+\begin{align}
+\mathrm{NDVI} & = \frac{\rho_{\mathrm{NIR}}-\rho_{\mathrm{R}}}{\rho_{\mathrm{NIR}}+\rho_{\mathrm{R}}},\\
+\mathrm{WET} & = 0.0315\rho_{\mathrm{B}}+0.2021\rho_{\mathrm{G}}+0.3102\rho_{\mathrm{R}}+0.1594\rho_{\mathrm{NIR}}-0.6806\rho_{\mathrm{SWIR1}}-0.6109\rho_{\mathrm{SWIR2}}.
+\end{align}
+The normalized difference built-up and soil index (NDBSI) was the arithmetic mean of the soil index (SI) and the index-based built-up index (IBI):
+\begin{align}
+\mathrm{SI} & = \frac{(\rho_{\mathrm{SWIR1}}+\rho_{\mathrm{R}})-(\rho_{\mathrm{NIR}}+\rho_{\mathrm{B}})}{(\rho_{\mathrm{SWIR1}}+\rho_{\mathrm{R}})+(\rho_{\mathrm{NIR}}+\rho_{\mathrm{B}})},\\
+D & = \frac{2\rho_{\mathrm{SWIR1}}}{\rho_{\mathrm{SWIR1}}+\rho_{\mathrm{NIR}}},\qquad
+V = \frac{\rho_{\mathrm{NIR}}}{\rho_{\mathrm{NIR}}+\rho_{\mathrm{R}}}+\frac{\rho_{\mathrm{G}}}{\rho_{\mathrm{G}}+\rho_{\mathrm{SWIR1}}},\\
+\mathrm{IBI} & = \frac{D-V}{D+V},\qquad
+\mathrm{NDBSI}=\frac{\mathrm{SI}+\mathrm{IBI}}{2}.
+\end{align}
+
+Static topographic predictors were obtained from the Copernicus DEM GLO-30 collection in Earth Engine, a global digital surface model with approximately 30 m spacing. Elevation was mosaicked, aligned to the output grid and stored in 4° tiles; slope was derived from the same elevation surface \parencite{copernicusDem2022}. Longitude and latitude were taken at the centres of the 30 m pixels to describe large-scale geographic variation. Terra eight-day daytime LST supplied the annual thermal targets and residual-adjustment fields. JRC Global Surface Water provided annual water status and the common stable-land domain \parencite{pekel2016water}. The principal inputs and their uses are summarized in Table~\ref*{tab:inputs}.
+
+\begin{table}[H]
+\centering
+\caption{Principal input datasets for production and evaluation.}
+\label{tab:inputs}
+\small
+\begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}p{4.0cm}>{\raggedright\arraybackslash}p{1.8cm}>{\raggedright\arraybackslash}p{2.0cm}>{\raggedright\arraybackslash}X@{}}
+\toprule
+Dataset & Nominal resolution & Period & Use \\
+\midrule
+Annual seamless leaf-on Landsat six-band surface reflectance composites & 30 m & 2000--2024 & Calculation of NDVI, WET and NDBSI predictors \\
+MODIS Terra MOD11A2 V061 eight-day daytime LST & 1 km; 8 days & 2000--2024 & Annual median targets and low-frequency residual reference \\
+Copernicus DEM GLO-30 elevation and derived slope & 30 m & Static & Topographic predictors \\
+Longitude and latitude & 30 m grid & Static & Geographic predictors \\
+JRC Global Surface Water & 30 m & 2000--2021 & Annual water status, land domains and quality control \\
+Landsat 8 Collection 2 Level-2 surface temperature & 30 m grid & 2013--2024 & Nationwide spatially stratified independent evaluation \\
+Landsat 5/7/8 Collection 2 surface reflectance & 30 m & 2000--2024 & Optical imagery and NDVI series for the case studies \\
+Heihe UAV thermal infrared brightness temperature & 0.4 m & 2020 & Local spatial-structure evaluation \\
+Automatic-station surface infrared radiometric temperature from the National Cryosphere Desert Data Center & Point & 2008--2024 & Independent annual ground evaluation across sites \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Predictors and training samples}
+
+To match the spatial support of the thermal target, NDVI, WET, NDBSI, elevation and slope were first aggregated by area averaging to the 0.01° target grid for each year and tile. Longitude and latitude were evaluated at grid-cell centres. Candidate samples required complete values for all seven predictors and a valid annual thermal target. Stratified random sampling was then performed by year and 4° tile. A fully covered tile had a baseline quota of 500 samples; this quota was reduced in proportion to the fraction of valid target pixels in the tile, rounded to an integer and capped by the number of eligible pixels. This procedure yielded 1,026,617 training records. The response variable was the annual thermal target at the same 0.01° grid cell as the predictors. Training samples were drawn from all 91 rectangular tiles without an additional water mask. Statistics and independent evaluations over Chinese land used the annual or common stable-land domains defined in Section~2.1.
+
+\subsection{Random forest spatial downscaling}
+
+Samples from all 25 years were combined to train a single random forest regressor \parencite{breiman2001random}, providing a shared predictor--temperature relationship for the annual products. The model contained 100 regression trees with a maximum depth of 25 and a minimum of one sample per leaf. All predictors were available at each split, bootstrap sampling was enabled, and the random seed was fixed at 42. This configuration balanced model capacity against the computational cost of national 30 m inference; sensitivity to tree number and depth was evaluated using the same spatial test folds. The trained model was applied pixel by pixel to the seven predictors from each year's original 30 m optical and topographic tiles to generate the random forest baseline, \rf{}.
+
+Model evaluation began with a random 70\% training and 30\% test split using seed 42. To assess spatial and temporal generalization, the 91 tiles were grouped into five spatial folds by $k$-means clustering of their centre coordinates, while 2000--2024 was divided into five consecutive five-year temporal folds. Spatial and temporal blocked tests each held out one complete fold. In the joint spatiotemporal tests, the intersection of spatial and temporal folds with the same index formed the test set; both the corresponding spatial fold and temporal fold were excluded from training. This design follows structured cross-validation principles for spatially and temporally correlated data \parencite{roberts2017cv,valavi2019blockcv,meyer2018spatiotemporal}. Evaluation metrics were $R^2$, Pearson correlation, root mean square error (RMSE), mean absolute error (MAE) and bias. Models without longitude and latitude, and configurations with different tree numbers and depths, were compared on the same spatial folds. Feature importance in the complete model was calculated from normalized decreases in impurity.
+
+\subsection{Low-frequency residual adjustment}
+
+To calibrate the regional thermal background, \rf{} was first aggregated to the 0.01° grid by averaging valid pixels. The kilometre-scale residual for year $y$ was
+\begin{equation}
+r_y=M_y-A(T_y^{\mathrm{RF}}),
+\end{equation}
+where $M_y$ is the annual thermal target and $A(\cdot)$ denotes aggregation from the 30 m grid to the 0.01° grid. Let $I_y$ indicate valid residual cells within China. The smoothed adjustment field was calculated by normalized Gaussian convolution:
+\begin{equation}
+c_y=\frac{G_{\sigma=10}*(I_y r_y)}{G_{\sigma=10}*I_y}.
+\end{equation}
+The Gaussian kernel had a standard deviation of ten 0.01° grid cells and a truncation radius of $2.5\sigma$. Weight normalization allowed neighbouring valid residuals to determine the adjustment near missing-data boundaries. The smoothed field was bilinearly resampled to 30 m and added to the baseline:
+\begin{equation}
+T_y^{\mathrm{CT30}}=T_y^{\mathrm{RF}}+U(c_y),
+\end{equation}
+where $U(\cdot)$ denotes resampling. Residuals were added wherever the adjustment field was available; elsewhere, the original \rf{} values were retained, preserving the valid-pixel domain. The adjusted result forms the core LST layer of \chinatherm{}. The smooth field corrects broad-scale temperature offsets, while local 30 m differences remain determined by the random forest baseline and its fine-resolution predictors.
+
+\begin{figure}[H]
+\centering
+\figureorplaceholder{../figures/main/Figure2.pdf}{}{8cm}
+\ReviewFloatBegin
+\caption{Production workflow for \chinatherm{}. Leaf-on NDVI, WET and NDBSI calculated from six-band surface reflectance composites enter the cross-year random forest together with Copernicus DEM GLO-30 elevation, slope, longitude and latitude. The pixelwise median of quality-screened observations from 19 candidate eight-day daytime composites provides the kilometre-scale annual training target. The random forest generates \rf{}. Residuals between the annual thermal target and aggregated \rf{} are Gaussian-smoothed, resampled to 30 m and added to \rf{} to produce the core \chinatherm{} LST layer.}
+\label{fig:workflow}
+\ReviewFloatEnd
+\end{figure}
+
+\subsection{Independent observation-based evaluation}
+
+\subsubsection{Spatial consistency with Landsat 8 surface temperature}
+
+The nationwide satellite comparison used Landsat 8 OLI/TIRS Collection 2 Tier 1 Level-2 surface temperature for 2013--2024 \parencite{malakar2018landsatSt,ermida2020landsatGee,usgs2021collection2}. Observations of \texttt{ST\_B10} within DOY 150--300 were converted to degrees Celsius using $T=\mathrm{DN}\times0.00341802+149.0-273.15$. The \texttt{QA\_PIXEL} band excluded fill, dilated cloud, cirrus, cloud, cloud shadow, snow and water pixels, and \texttt{QA\_RADSAT} excluded radiometric saturation. Strict screening additionally required \texttt{ST\_QA}$\leq5$~K and \texttt{ST\_CDIST}$\geq1$~km. Scene temperatures were bilinearly resampled to a common 120 m grid, with nearest-neighbour resampling for quality masks. Annual reference values were the median of valid scene temperatures at each grid cell.
+
+A fixed set of 20,000 candidate points was selected from the common stable-land domain, stratified by 4° tile, macroregion and elevation band. Comparisons used the mean of valid \chinatherm{} pixels within a 3$\times$3 neighbourhood. Each annual pair required at least three strictly quality-screened Landsat 8 observations and a neighbourhood water fraction no greater than 10\%. Eligible paired samples were selected separately for each year. Area weights restored each stratum's represented area within the common stable-land domain. Confidence intervals were estimated with 2,000 bootstrap replicates over 2° spatial blocks for each year. Supplementary Figs.~S2 and S3 describe the sample distribution and annual support of an additional multisensor Landsat 5/7/8/9 comparison for 2000--2024. That comparison used the same date window and quality thresholds, combining valid observations from the different sensors before calculating annual medians.
+
+\subsubsection{UAV thermal spatial-structure evaluation}
+
+The UAV evaluation used 0.4 m thermal infrared brightness-temperature orthomosaics acquired in the middle Heihe basin in 2020 from the MUSOES-UAV dataset \parencite{zhou2026musoes}, available at \href{https://doi.org/10.11888/Terre.tpdc.302412}{\nolinkurl{10.11888/Terre.tpdc.302412}}. Three scenes over Daman cropland were acquired on 13 July, 20 August and 19 September; four over Huazhaizi desert were acquired on 14 July, 20 August, 19 September and 20 October; and four over the wetland were acquired on 14 July, 21 August, 20 September and 21 October.
+
+Each scene was aggregated by area averaging to the \chinatherm{} grid, with additional aggregation to 90 and 300 m. Individual scenes were compared using spatial Pearson correlation and centred RMSE. UAV imagery records conditions during a single flight, whereas \chinatherm{} represents an annual leaf-on composite. To compare spatial patterns, each UAV scene was standardized spatially, and a pixelwise median across dates was calculated for each site and compared with spatially standardized \chinatherm{}. High-frequency components were obtained by subtracting a Gaussian low-pass field with a standard deviation of four 30 m pixels from the original image.
+
+\subsubsection{Ground infrared radiometric temperature evaluation}
+
+Ground evaluation used station-year datasets from automatic stations in the Heihe and Haihe basins released by the \href{https://www.ncdc.ac.cn/}{National Cryosphere Desert Data Center (NCDC)}. Entries were grouped by station and observation year; temporal coverage is given in Supplementary Table~S1. Heihe station metadata follow the 23-station hydrometeorological network described by \textcite{liu2018heiheNetwork}, spanning the upper, middle and lower reaches and including alpine meadows, forests, cropland, wetlands and deserts. The evaluation design was informed by established error sources and reporting practices for ground validation of satellite LST \parencite{guillevic2018protocol,zhu2021groundValidation}.
+
+Station timestamps were interpreted as China Standard Time and converted to local mean solar time using station longitude. The primary protocol selected observations within $\pm30$ min of Terra's nominal 10:30 overpass. When both infrared radiometric temperature (IRT) sensors were valid, their readings were averaged; paired observations differing by more than 5~°C were rejected, while a single valid sensor was retained when the other was unavailable. Daily medians were calculated within the time window and assigned to MOD11A2 eight-day bins with nominal start dates within DOY 150--300. Valid daily values were averaged within each bin, and the annual ground composite was the median of the eight-day means. A clear-sky index derived from downward shortwave radiation was required to satisfy $K\geq0.65$, and each site-year required at least eight valid eight-day bins. All-sky conditions, $K\geq0.60$, and $\pm60$ and $\pm90$ min windows were examined in sensitivity tests.
+
+The temporal, clear-sky and eight-day coverage filters yielded 145 candidate site-years. Ground-reference consistency screening further required the site-year median of daily absolute paired-IRT differences to be no greater than 5~°C. Site-years lacking a dual-sensor diagnostic were retained if they met the other observation criteria. The resulting evaluation included 23 sites and 131 site-years; site-year diagnostics are provided in Supplementary Figs.~S5--S6 and Table~S3.
+
+Colocated \chinatherm{} values were extracted for the centre pixel and as medians over 3$\times$3, 5$\times$5, 9$\times$9 and 33$\times$33 neighbourhoods. Centre pixels provided direct comparisons, while the neighbourhood sequence assessed spatial-support differences associated with point IRT measurements, pixel geolocation and surface heterogeneity \parencite{snyder1997playa,coll2005groundValidation,yu2017validationScheme,martin2019inSitu}. The predefined 3$\times$3 neighbourhood was used for overall statistics; the remaining scales supported sensitivity analysis. Metrics included Pearson correlation, RMSE, MAE and bias. Overall uncertainty was estimated using 2,000 bootstrap replicates clustered by site, with additional site-level and sub-basin results. Station metadata, coverage and processing definitions are provided in Supplementary Fig.~S4 and Tables~S1--S2.
+
+\subsection{Case studies of landscape change}
+
+The case studies cover Yan'an New District and its surrounding loess hills (109.435--109.570°E, 36.605--36.705°N) and part of Lanzhou New Area (103.600--103.730°E, 36.480--36.600°N). Analysis zones were delineated from construction extents and contiguous landscape patches in historical optical imagery. Yan'an includes the main construction zone Y1 and surrounding hills Y2, the latter comprising three polygons. Lanzhou includes the main built-up zone L1, western cropland L2 and airport window L3.
+
+Temperature statistics used a fixed set of pixels with valid \chinatherm{} observations in all 25 years and non-water status in every available annual water mask during 2000--2021. Annual zonal means were weighted by actual pixel area. NDVI additionally required valid observations covering at least 80\% of each zone. Equal-weight averages across years were calculated for 2000--2004, 2010--2014 and 2020--2024. Temperature-difference maps compared the early and middle periods, the middle and recent periods, and the early and recent periods, alongside the complete annual series for 2000--2024.

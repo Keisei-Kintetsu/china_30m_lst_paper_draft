@@ -1,0 +1,16 @@
+\section{Data Records}
+
+\chinatherm{} contains 25 annual LST products for 2000--2024, each comprising 91 tiles of 4° by 4°. The record consists of 2,275 single-band GeoTIFF files with a total size of approximately 611.03~GiB. The GeoTIFFs use Deflate compression. ScienceDB provides 25 annual TAR archives, together with an English README and data dictionary\supercite{liang2026chinatherm30}.
+
+The GeoTIFFs use the EPSG:4326 coordinate reference system and an angular pixel spacing of approximately 0.0002695°. Values are stored as Int16, with a scale factor of 0.01~°C and a NoData value of $-32768$. Filenames identify the product year and the integer longitude and latitude of the tile's western and southern edges. Field definitions are provided in the accompanying data dictionary.
+
+The scientific domain is land within China. The core files retain rectangular tiles for mosaicking, so water areas and portions of boundary tiles outside China may contain model outputs; land statistics require the corresponding national and land boundaries. Figure~\ref*{fig:data-records} shows the national distributions for 2000 and 2024 and progressively finer views of western Sichuan and Beijing, from 4° tiles to local 30 m patterns.
+
+\begin{figure}[H]
+\centering
+\figureorplaceholder{../figures/main/Figure3.pdf}{}{7.4cm}
+\ReviewFloatBegin
+\caption{National coverage and multiscale spatial views of \chinatherm{} in 2000 and 2024. a, h, National overviews at 0.01° for 2000 and 2024, respectively. b--d and e--g, The 4° tiles, 0.75° local windows and 0.26° close-up windows for western Sichuan (X100\_Y30) and Beijing--Yanshan (X116\_Y38) in 2000. i--k and l--n, Corresponding views at the same locations and scales in 2024.}
+\label{fig:data-records}
+\ReviewFloatEnd
+\end{figure}

@@ -1,0 +1,23 @@
+\section*{Regional interannual consistency}
+
+\subsection*{Sampling and temporal pairing}
+
+The analysis compares consecutive-year changes in ChinaTherm30 and Landsat 8 annual LST composites during 2013--2024. The Landsat date window, temperature conversion and strict quality screening follow the main-text Landsat 8 comparison. Each year requires at least three valid observations; both annual ChinaTherm30 3$\times$3 means must be available, and neighbourhood water fractions must not exceed 10\%. The original 20,000 candidate points were supplemented by a pool of 59,626 candidates to improve representation where cloud screening had reduced temporal support. Within each 4° tile--macroregion--elevation stratum, eligible original points were retained first, followed by eligible reserve points in their preassigned order until the original stratum quota was reached.
+
+For each of the 11 adjacent-year pairs, both datasets use exactly the same selected locations. A stratum is included only if it has at least three paired points and a Kish effective sample size of at least three in every year pair. The retained stratum set and its area weights remain fixed across all pairs; individual points may change between pairs. Original 2° sampling weights are normalized within each retained stratum to its original area. Supported area fractions are relative to the full macroregional sampling-design area, not the fraction of pixels directly observed.
+
+\subsection*{Metrics and uncertainty}
+
+For product $P$, the regional change ending in year $t$ is
+\begin{equation}
+\Delta T^P_{r,t}=\frac{\sum_{s\in S_r}A_s\left[\sum_{i\in I_{s,t}}w_i(T^P_{i,t}-T^P_{i,t-1})/\sum_{i\in I_{s,t}}w_i\right]}{\sum_{s\in S_r}A_s},
+\end{equation}
+where $S_r$ is the fixed set of supported strata in region $r$, $A_s$ is stratum area, and $I_{s,t}$ contains the paired locations. Pearson correlation and RMSE are calculated from the 11 regional change values for the two datasets. The standard-deviation ratio is $\operatorname{SD}(\Delta T^{\mathrm{CT30}})/\operatorname{SD}(\Delta T^{\mathrm{L8}})$; it describes variability in adjacent-year changes, not the variability or trend of annual temperature levels. Direction agreement counts year pairs for which both changes have the same sign.
+
+Confidence intervals use 1,000 spatial-cluster bootstrap replicates over 4° tiles. They are conditional on the observed years and supported domain and do not quantify uncertainty over unobserved regions or resampled years. SWM contains only nine spatial blocks. Observation-date summaries first calculate the median valid-observation DOY for each point and year, then take an area-weighted median across paired points; they are not the first and last acquisition dates of a season.
+
+\subsection*{Results}
+
+Regional change correlations range from 0.399 in SWM to 0.870 in HSE, and change RMSE ranges from 1.017 to 1.752~$^{\circ}$C (Figure~S8; Tables~S4--S5). HSE agrees in change direction for all 11 pairs and TP for ten pairs; ANW and SWM agree for six. Standard-deviation ratios of 0.349--0.826 indicate smaller adjacent-year changes in ChinaTherm30 than in Landsat 8 across all six regions. Fixed strata represent more than 99\% of the design area in TP, NEC, NCLP and ANW, compared with 83.3\% in HSE and 62.5\% in SWM. Year-pair sample sizes, temperature changes and observation support are reported in Table~S6.
+
+\input{supplementary/temporal_tables.tex}

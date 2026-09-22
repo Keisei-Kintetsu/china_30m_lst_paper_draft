@@ -1,0 +1,93 @@
+\section{Technical Validation}
+
+\subsection{Random forest generalization and parameter sensitivity}
+
+In the random 70/30 test set, model predictions agreed closely with the kilometre-scale annual thermal targets (Fig.~\ref*{fig:rf-validation}a), with $R^2=0.945$, Pearson $r=0.972$, RMSE of 2.140~°C and MAE of 1.559~°C. In the complete model, feature importances for elevation, NDBSI and NDVI were 0.414, 0.290 and 0.126, respectively, summing to 0.830; the remaining four predictors together accounted for 0.170 (Fig.~\ref*{fig:rf-validation}b).
+
+The blocked tests showed a larger increase in error when predicting new regions than when withholding consecutive years (Fig.~\ref*{fig:rf-validation}c). Five-fold spatial-block validation yielded overall $R^2=0.809$, Pearson $r=0.904$, RMSE of 3.967~°C and MAE of 2.922~°C. Temporal-block validation yielded $R^2=0.940$ and RMSE of 2.218~°C, close to the random-split results. Joint spatial and temporal holdouts yielded $R^2=0.806$ and RMSE of 3.983~°C, similar to spatial-block validation. Tile-level spatial-block RMSE had a median of 3.448~°C and ranged from 1.294 to 7.802~°C, with higher values mainly at the margins of NEC and in parts of ANW (Fig.~\ref*{fig:rf-validation}d). Removing longitude and latitude increased spatial-block RMSE to 4.409~°C, indicating that geographic coordinates helped represent temperature differences among regions.
+
+Parameter sensitivity was evaluated for five configurations using the same five spatial folds. With maximum depth fixed at 25, tree numbers were increased from 100 to 300 and 500; with 300 trees, maximum depths of 15, 25 and unrestricted growth were compared. Overall RMSE differed by only approximately 0.015~°C among these configurations (Fig.~\ref*{fig:rf-validation}e). The configuration with 100 trees and a maximum depth of 25 had the lowest RMSE (3.9666~°C), whereas the total fitting times of the other four configurations were 1.99--4.75 times greater (Fig.~\ref*{fig:rf-validation}f). Increasing tree number or allowing deeper trees did not reduce spatial-block error but substantially increased computation time; the 100-tree, depth-25 configuration was therefore used for production.
+
+\begin{figure}[H]
+\centering
+\figureorplaceholder{../figures/main/Figure4.pdf}{}{8cm}
+\ReviewFloatBegin
+\caption{Generalization and configuration sensitivity of the random forest baseline. a, Density of predictions against kilometre-scale annual thermal targets in the random 70/30 test set, with the 1:1 line. b, Feature importance of the seven predictors in the complete model, based on normalized impurity reduction. c, RMSE, MAE, bias and $R^2$ for random, spatial-block, temporal-block and joint spatiotemporal tests. Filled circles, open squares and diamonds represent overall RMSE, MAE and bias, respectively; small circles show fold-level RMSE. d, Five-fold spatial-block RMSE across the 91 tiles of 4° by 4°. e, RMSE for five tree-number and maximum-depth configurations on the same spatial test folds; black diamonds show overall results. f, Relative computation cost and overall RMSE differences from the configuration with 100 trees and a maximum depth of 25. Cost is the ratio of total model fitting times.}
+\label{fig:rf-validation}
+\ReviewFloatEnd
+\end{figure}
+
+\subsection{Cross-scale consistency and preservation of 30 m detail}
+
+After \rf{} and \chinatherm{} were aggregated to a common 0.01° grid, the adjusted temperatures were closer to the kilometre-scale annual targets (Fig.~\ref*{fig:residual-adjustment}a--b). Across annual grid-cell values for 2000--2024, RMSE decreased from 2.101 to 1.414~°C, a reduction of 32.7\%; Pearson correlation increased from 0.973 to 0.988, and mean bias decreased from 0.034 to 0.003~°C. RMSE decreased in every year, with improvements in all six macroregions (Fig.~\ref*{fig:residual-adjustment}c--d).
+
+The smoothing scale influenced both local variation in the adjustment field and agreement with the kilometre-scale target. Comparisons among $\sigma=5$, 10, 20 and 40 showed that smaller values produced more localized fields with steeper gradients. Larger values produced smoother fields but smaller reductions in kilometre-scale RMSE (Fig.~\ref*{fig:residual-adjustment}e). At $\sigma=10$, RMSE was 1.414~°C and the mean absolute adjustment gradient was 0.0377, intermediate among the four smoothing scales. Figure~\ref*{fig:residual-adjustment}f illustrates the regional temperature background, raw residuals and smoothed adjustment over the eastern TP and Sichuan Basin in 2024.
+
+\begin{figure}[H]
+\centering
+\figureorplaceholder{../figures/main/Figure5.pdf}{}{8.2cm}
+\ReviewFloatBegin
+\caption{Low-frequency residual adjustment and kilometre-scale consistency. a--b, Area-weighted density of annual grid-cell values for \rf{} and \chinatherm{} against the kilometre-scale thermal target over the common stable-land domain during 2000--2024; dashed lines indicate 1:1 agreement. c, Annual national RMSE for both products. d, Overall RMSE and percentage reductions after adjustment in TP, NEC, NCLP, ANW, HSE and SWM. e, National mean kilometre-scale RMSE and mean absolute gradient of the adjustment field for $\sigma=5$, 10, 20 and 40; the star marks $\sigma=10$. f, \rf{}, kilometre-scale target, raw residual and smoothed adjustment at $\sigma=10$ over the eastern TP and Sichuan Basin in 2024.}
+\label{fig:residual-adjustment}
+\ReviewFloatEnd
+\end{figure}
+
+At 30 m, the 2024 views of Chengdu, Wuhan, the western Sichuan mountains and the Urumqi--Tianshan piedmont illustrate adjustment effects across urban, agricultural, riverine, mountainous and arid piedmont landscapes (Fig.~\ref*{fig:spatial-detail}a). Mean adjustments in the four windows were $+1.029$, $+1.320$, $-0.919$ and $-1.191$~°C, respectively, with spatial standard deviations of 0.273--0.613~°C. RMSE relative to the bilinearly resampled kilometre-scale target decreased by 0.267--0.522~°C, with the direction and magnitude of adjustment varying with the regional thermal background.
+
+Local profiles showed nearly identical short-distance fluctuations in the two 30 m products, with adjustment acting mainly as a spatially gradual temperature shift (Fig.~\ref*{fig:spatial-detail}b). Across the four windows, Pearson correlations between the high-frequency components of \rf{} and \chinatherm{} were 0.999995--0.999999, and their standard-deviation ratios were 0.999998--1.000006. Urban boundaries, cropland, watercourses, valleys and terrain-related patterns were therefore almost unchanged. Low-frequency calibration improved kilometre-scale consistency while preserving the spatial structure represented by the random forest baseline.
+
+\begin{figure}[H]
+\centering
+\figureorplaceholder{../figures/main/Figure6.pdf}{}{8.2cm}
+\ReviewFloatBegin
+\caption{Spatial structure at 30 m before and after low-frequency residual adjustment. a, \rf{}, smoothed adjustment and \chinatherm{} for Chengdu, Wuhan, the western Sichuan mountains and the Tianshan piedmont in 2024. b, Central profiles through the four windows, comparing \rf{}, \chinatherm{} and the bilinearly resampled kilometre-scale annual target. Across the four windows, Pearson correlations between high-frequency components of \rf{} and \chinatherm{} are 0.999995--0.999999, with standard-deviation ratios of 0.999998--1.000006.}
+\label{fig:spatial-detail}
+\ReviewFloatEnd
+\end{figure}
+
+\subsection{Spatial consistency with Landsat 8 surface temperature}
+
+\chinatherm{} and Landsat 8 annual composites showed consistent national spatial temperature patterns during 2013--2024. Each year contained 12,531--13,625 valid paired samples, representing approximately 5.70--6.38 million km$^2$ of land. Annual area-weighted spatial Pearson correlations ranged from 0.812 to 0.887, with a median of 0.8635 (Fig.~\ref*{fig:satellite-comparison}a).
+
+The two sets of annual composites also differed in their overall temperature levels. Median annual RMSE and centred RMSE were 5.856 and 4.867~°C, respectively, and the median annual mean bias, defined as \chinatherm{} minus Landsat 8, was $-3.206$~°C (Fig.~\ref*{fig:satellite-comparison}b). Macroregional comparisons comprised 72 region--year combinations. Median centred RMSE was 3.509~°C in SWM, 3.818~°C in HSE and 5.202~°C in TP; median spatial correlations were 0.820 in ANW and 0.796 in NEC (Fig.~\ref*{fig:satellite-comparison}c--d).
+
+\begin{figure}[H]
+\centering
+\figureorplaceholder{../figures/main/Figure7.pdf}{}{8.2cm}
+\ReviewFloatBegin
+\caption{Nationwide spatially stratified comparison of \chinatherm{} with Landsat 8 Collection 2 surface temperature during 2013--2024. a, Annual national area-weighted spatial Pearson correlation, with 95\% confidence intervals from a 2° spatial-block bootstrap. b, Annual national RMSE and centred RMSE with 95\% confidence intervals. Centred RMSE removes the national area-weighted mean difference between the two datasets. c, Twelve-year distributions of annual spatial Pearson correlations in TP, NEC, NCLP, ANW, HSE and SWM. d, Corresponding distributions of annual centred RMSE. In c and d, points represent individual years, boxes show the interquartile range, white lines mark medians, and whiskers extend to the most extreme values within 1.5 interquartile ranges of the box.}
+\label{fig:satellite-comparison}
+\ReviewFloatEnd
+\end{figure}
+
+\subsection{Independent UAV evaluation of thermal spatial structure}
+
+Across the 11 UAV scenes, increasing the common aggregation scale from 30 to 300 m raised the median scene-level spatial correlation from 0.494 to 0.553 and reduced centred RMSE from 2.450 to 1.231~°C. Improved agreement at coarser scales indicates more stable representation of field- and landscape-scale thermal patterns, whereas comparisons at the finest scale are more sensitive to instantaneous surface conditions and spatial registration. Correlations for the standardized multidate composites over Daman cropland, Huazhaizi desert and the wetland were 0.596, 0.713 and 0.455, respectively; corresponding high-frequency correlations were 0.546, 0.477 and 0.387. Local thermal-pattern agreement thus varied with surface type and spatial frequency (Fig.~\ref*{fig:uav-validation}).
+
+\begin{figure}[H]
+\centering
+\figureorplaceholder{../figures/main/Figure8.pdf}{}{7.4cm}
+\ReviewFloatBegin
+\caption{Spatial-structure comparison of UAV thermal infrared brightness temperature and \chinatherm{} in the middle Heihe basin. a, Standardized multidate UAV thermal patterns over Daman cropland, Huazhaizi desert and the wetland, with corresponding \chinatherm{} patterns. UAV composites are pixelwise medians of spatially standardized scenes. b--c, Spatial Pearson correlations and centred RMSE for the 11 UAV scenes at 30, 90 and 300 m; lighter points show individual scenes, while filled points and error bars show medians and interquartile ranges. d, Pearson correlations of \chinatherm{} with the multidate composite patterns and their high-frequency components for the three surface types.}
+\label{fig:uav-validation}
+\ReviewFloatEnd
+\end{figure}
+
+\subsection{Ground evaluation and spatial representativeness}
+
+Ground evaluation included 23 sites and 131 site-years spanning 16 calendar years within 2008--2024. Twenty-one sites belong to the upper, middle and lower Heihe network, while Guantao and Daxing provide two additional sites in the Haihe basin (Fig.~\ref*{fig:ground-validation}a). Heihe site numbers follow the 1--23 numbering in Table~1 of \textcite{liu2018heiheNetwork}; H1 and H2 denote Guantao and Daxing, respectively. Station metadata are given in Supplementary Table~S1. Annual coverage, paired-IRT consistency screening and comparisons before and after quality control are provided in Supplementary Figs.~S4--S7.
+
+The Pearson correlation between \chinatherm{} 3$\times$3 neighbourhood medians and annual ground-IRT composites was 0.840, with RMSE of 5.397~°C, MAE of 4.135~°C and bias of 0.560~°C (Fig.~\ref*{fig:ground-validation}b). Site-cluster bootstrap 95\% intervals were 0.681--0.931 for $r$, 3.640--6.788~°C for RMSE and $-1.960$--2.852~°C for bias.
+
+\begin{figure}[H]
+\centering
+\figureorplaceholder{../figures/main/Figure9.pdf}{}{8.5cm}
+\ReviewFloatBegin
+\caption{Independent evaluation of \chinatherm{} using surface infrared radiometric temperatures from NCDC automatic stations. All panels use the 131 site-years passing ground-reference consistency screening. a, Locations of the 23 sites, with point size indicating the number of evaluated site-years. b, \chinatherm{} 3$\times$3 neighbourhood medians against annual ground-IRT composites, with overall metrics and site-cluster bootstrap 95\% intervals. c, RMSE and MAE for the centre pixel and neighbourhoods up to 33$\times$33 pixels. d, Site-level mean bias and interquartile range of the 3$\times$3 residuals, with point size indicating site-year count. Site numbers in a and d correspond to Supplementary Table~S1.}
+\label{fig:ground-validation}
+\ReviewFloatEnd
+\end{figure}
+
+Agreement changed gradually with spatial support. For the centre pixel and 3$\times$3, 5$\times$5, 9$\times$9 and 33$\times$33 neighbourhood medians, correlations were 0.820, 0.840, 0.848, 0.851 and 0.832, respectively. Corresponding RMSE values were 5.778, 5.397, 5.248, 5.130 and 5.181~°C, and biases were 0.889, 0.560, 0.508, 0.348 and $-0.756$~°C. The modest decrease in error with larger neighbourhoods indicates differences in spatial representativeness among point IRT measurements, pixel locations and heterogeneous surrounding surfaces.
+
+Sub-basin results further revealed this heterogeneity. Centre-pixel RMSE values were 3.533, 5.750 and 7.930~°C for the upper, middle and lower Heihe reaches, with biases of $-0.922$, $-1.946$ and 6.224~°C, respectively. Centre-pixel RMSE at the two Haihe sites was 3.511~°C. Site-level 3$\times$3 bias ranged from $-9.517$~°C at Heihe Remote Sensing to $+10.641$~°C at Cropland (Fig.~\ref*{fig:ground-validation}d). Removing each site's mean residual reduced RMSE to 2.448~°C.

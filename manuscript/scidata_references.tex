@@ -1,0 +1,16 @@
+% Numerical references in citation order for the Scientific Data review PDFs.
+% The editable working folder keeps the databases separate; a revised-source
+% submission will need a standalone manuscript with an embedded bibliography.
+\usepackage[backend=biber,style=numeric-comp,sorting=none,giveninits=true,
+  maxbibnames=6,minbibnames=1,maxcitenames=2,mincitenames=1,
+  doi=true,url=true,isbn=false,hyperref=false]{biblatex}
+\DeclareNameAlias{default}{family-given}
+\DeclareFieldFormat[article]{title}{#1}
+\DeclareFieldFormat[article]{volume}{\mkbibbold{#1}}
+\DeclareFieldFormat{doi}{\href{https://doi.org/#1}{\nolinkurl{https://doi.org/#1}}}
+\DeclareFieldFormat{bibhyperref}{#1}
+\DeclareFieldFormat{bibhyperref:lastkey}{#1}
+\DeclareFieldFormat{bibhyperlink}{#1}
+\AtEveryBibitem{\iffieldundef{doi}{}{\clearfield{url}\clearfield{urldate}}}
+\let\parencite\supercite
+\renewrobustcmd{\textcite}[1]{\citeauthor{#1}\supercite{#1}}

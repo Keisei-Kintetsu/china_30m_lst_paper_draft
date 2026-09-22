@@ -1,7 +1,16 @@
-\documentclass[UTF8,zihao=-4]{ctexart}
+\documentclass[11pt,a4paper]{article}
+\usepackage{fontspec}
+\setmainfont{texgyretermes-regular.otf}[
+  BoldFont=texgyretermes-bold.otf,
+  ItalicFont=texgyretermes-italic.otf,
+  BoldItalicFont=texgyretermes-bolditalic.otf]
+\usepackage{xeCJK}
+\setCJKmainfont{Songti SC}
+\setCJKmonofont{Songti SC}
 
 \usepackage[a4paper,margin=1.8cm]{geometry}
 \usepackage{booktabs}
+\usepackage{amsmath}
 \usepackage{graphicx}
 \usepackage{caption}
 \usepackage{longtable}
@@ -9,77 +18,137 @@
 \usepackage{ragged2e}
 \usepackage{xcolor}
 \usepackage[colorlinks=true,citecolor=blue!55!black,urlcolor=blue!55!black]{hyperref}
-\usepackage[backend=biber,style=apa,sorting=nyt]{biblatex}
+\input{scidata_references.tex}
+\ifdefined\LineNumberedReview
+  \usepackage[switch,mathlines]{lineno}
+  \newcommand{\ReviewFloatBegin}{\begin{minipage}{\linewidth}\internallinenumbers}
+  \newcommand{\ReviewFloatEnd}{\end{minipage}}
+\else
+  \newcommand{\ReviewFloatBegin}{}
+  \newcommand{\ReviewFloatEnd}{}
+\fi
 
 \addbibresource{references.bib}
 \setlength{\parindent}{2em}
 \setlength{\parskip}{0.25em}
+\setlength{\emergencystretch}{1em}
+\captionsetup{font=small,labelfont=bf}
+\AtBeginBibliography{\setlength{\emergencystretch}{3em}}
 
-\title{Supplementary information for ChinaTherm30}
+\title{Supplementary information\\[0.5em]\large Annual 30 m leaf-on daytime land surface temperature composites across China from 2000 to 2024}
 \author{}
 \date{}
 
 \begin{document}
+\ifdefined\LineNumberedReview
+  \modulolinenumbers[1]
+  \linenumbers
+\fi
 \maketitle
+
+\section*{Contents}
+\noindent\begin{tabular}{@{}p{14.7cm}r@{}}
+\textbf{Supplementary figures} & \textbf{Page}\\
+Figure S1. Six macroregions & \pageref*{fig:s1-macroregions}\\
+Figure S2. Spatial support of the multisensor Landsat comparison & \pageref*{fig:s2-landsat-density}\\
+Figure S3. Annual support of the multisensor Landsat comparison & \pageref*{fig:s3-landsat-annual}\\
+Figure S4. Ground-observation coverage & \pageref*{fig:s4-ground-coverage}\\
+Figure S5. Paired-IRT consistency & \pageref*{fig:s5-ground-qc}\\
+Figure S6. Ground evaluation before and after quality control & \pageref*{fig:s6-ground-set-comparison}\\
+Figure S7. Spatial-support sensitivity & \pageref*{fig:s7-ground-support}\\
+Figure S8. Regional interannual-change consistency & \pageref*{fig:s8-interannual}\\[0.7em]
+\textbf{Supplementary tables} & \\
+Table S1. Station metadata and ground-validation coverage & \pageref*{tab:s1-stations}\\
+Table S2. Ground-IRT processing and validation protocol & \pageref*{tab:s2-protocol}\\
+Table S3. Station-years excluded by paired-IRT screening & \pageref*{tab:s3-ground-qc}\\
+Table S4. Regional interannual-change metrics & \pageref*{tab:s4-interannual-metrics}\\
+Table S5. Bootstrap confidence intervals & \pageref*{tab:s5-interannual-ci}\\
+Table S6. Paired-year changes and observation support & \pageref*{tab:s6-interannual-pairs}\\[0.7em]
+Regional interannual consistency: methods and results & \pageref*{sec:si-interannual}\\
+References & \pageref*{sec:si-references}\\
+\end{tabular}
+\clearpage
 
 \renewcommand{\thefigure}{S\arabic{figure}}
 \renewcommand{\thetable}{S\arabic{table}}
 
-\section*{Supplementary Figures}
-
 \begin{figure}[p]
 \centering
-\includegraphics[width=0.96\linewidth]{../figures/FigureS1.pdf}
+\includegraphics[width=0.96\linewidth]{../figures/supplementary/FigureS1.pdf}
+\ReviewFloatBegin
 \caption{Six macroregions used for stratified sampling and regional reporting. The boundaries aggregate 46 ecological regions from the China eco-geographical regionalization: TP, Tibetan Plateau; NEC, Northeast China; NCLP, North China--Loess Plateau; ANW, Arid Northwest; HSE, Humid Southeast; and SWM, Southwest Mountains. These abbreviations are used consistently in the main text and figures.}
 \label{fig:s1-macroregions}
+\ReviewFloatEnd
 \end{figure}
 
 \clearpage
 \begin{figure}[p]
 \centering
-\includegraphics[width=0.96\linewidth]{../figures/FigureS2.pdf}
-\caption{Spatial support of the nationwide Landsat Collection 2 surface-temperature validation. Valid samples from 2000--2024 are aggregated to 1° grid cells to avoid overplotting. A sample-year requires strict cloud, shadow, snow and radiometric-saturation screening, at least three valid Landsat observations, available 3$\times$3 ChinaTherm30 and RF-LST baseline means, and a water fraction no greater than 10\%. Macroregion boundaries follow Figure~S1.}
+\includegraphics[width=0.96\linewidth]{../figures/supplementary/FigureS2.pdf}
+\ReviewFloatBegin
+\caption{Spatial support of the supplementary nationwide multisensor Landsat comparison, 2000--2024. This extended archive combines Landsat 5, 7, 8 and 9, whereas the main-text comparison uses Landsat 8 alone during 2013--2024. Valid sample-years are aggregated to 1° grid cells. A sample-year requires strict cloud, shadow, snow and radiometric-saturation screening, at least three valid Landsat observations, available 3$\times$3 ChinaTherm30 and RF-LST baseline means, and a water fraction no greater than 10\%. Macroregion boundaries follow Figure~S1.}
 \label{fig:s2-landsat-density}
+\ReviewFloatEnd
 \end{figure}
 
 \clearpage
 \begin{figure}[p]
 \centering
-\includegraphics[width=0.94\linewidth]{../figures/FigureS3.pdf}
-\caption{Annual support of the nationwide Landsat validation. Valid sample counts and represented stable-land area use the same eligibility and analysis weights as the area-weighted validation metrics in the main text.}
+\includegraphics[width=0.94\linewidth]{../figures/supplementary/FigureS3.pdf}
+\ReviewFloatBegin
+\caption{Annual support of the supplementary nationwide multisensor Landsat comparison, 2000--2024. Valid sample counts and represented land area correspond to the Landsat 5/7/8/9 archive in Figure~S2. Counts reflect at least three quality-screened observations per sample-year, while area totals use the original stratified-sampling weights. The Landsat 8-only comparison in the main text uses its own annual valid samples during 2013--2024.}
 \label{fig:s3-landsat-annual}
+\ReviewFloatEnd
 \end{figure}
 
 \clearpage
 \begin{figure}[p]
 \centering
-\includegraphics[width=0.94\linewidth]{../figures/FigureS4.pdf}
+\includegraphics[width=0.94\linewidth]{../figures/supplementary/FigureS4.pdf}
+\ReviewFloatBegin
 \caption{Temporal coverage of the final ground-validation set. Colours indicate the number of valid MOD11A2-aligned eight-day bins contributing to each station-year annual IRT composite. The final set contains 131 station-years across all 23 sites and 16 calendar years. Site IDs follow Table~S1.}
 \label{fig:s4-ground-coverage}
+\ReviewFloatEnd
 \end{figure}
 
 \clearpage
 \begin{figure}[p]
 \centering
-\includegraphics[width=0.94\linewidth]{../figures/FigureS5.pdf}
+\includegraphics[width=0.94\linewidth]{../figures/supplementary/FigureS5.pdf}
+\ReviewFloatBegin
 \caption{Paired-IRT consistency within the 145 candidate station-years. A paired-sensor diagnostic was available for 143 records. Fourteen station-years with a median daily paired-IRT absolute difference greater than 5~$^{\circ}$C were excluded from the final ground-reference set; the remaining 131 station-years retained all 23 sites. The criterion uses only ground-sensor measurements.}
 \label{fig:s5-ground-qc}
+\ReviewFloatEnd
 \end{figure}
 
 \clearpage
 \begin{figure}[p]
 \centering
-\includegraphics[width=0.92\linewidth]{../figures/FigureS6.pdf}
+\includegraphics[width=0.92\linewidth]{../figures/supplementary/FigureS6.pdf}
+\ReviewFloatBegin
 \caption{ChinaTherm30 3$\times$3 neighbourhood medians compared with annual ground-IRT composites before and after ground-reference quality control. Coloured circles are the 131 final station-years, and red crosses are the 14 records excluded by the paired-IRT criterion. Summary statistics report the complete 145-record candidate set and the 131-record final set.}
 \label{fig:s6-ground-set-comparison}
+\ReviewFloatEnd
 \end{figure}
 
 \clearpage
 \begin{figure}[p]
 \centering
-\includegraphics[width=0.94\linewidth]{../figures/FigureS7.pdf}
-\caption{Spatial-support sensitivity before and after ground-reference quality control. Points show RMSE and MAE for the ChinaTherm30 centre pixel and median neighbourhoods from 3$\times$3 to 33$\times$33 pixels; error bars are 95\% site-cluster bootstrap intervals. The four series are slightly offset horizontally within each neighbourhood for legibility. The main text reports the final quality-controlled set.}
+\includegraphics[width=0.94\linewidth]{../figures/supplementary/FigureS7.pdf}
+\ReviewFloatBegin
+\caption{Spatial-support sensitivity before and after ground-reference quality control. Points show RMSE and MAE for the ChinaTherm30 centre pixel and median neighbourhoods from 3$\times$3 to 33$\times$33 pixels; error bars are 95\% site-cluster bootstrap intervals.}
 \label{fig:s7-ground-support}
+\ReviewFloatEnd
+\end{figure}
+
+\clearpage
+\begin{figure}[p]
+\centering
+\includegraphics[width=0.96\linewidth]{../figures/supplementary/FigureS8.pdf}
+\ReviewFloatBegin
+\caption{Interannual consistency of regional LST changes. Panels a--f show TP, NEC, NCLP, ANW, HSE and SWM. Curves show area-weighted changes between consecutive annual composites of ChinaTherm30 and Landsat 8; year $t$ denotes the change from $t-1$ to $t$. Each macroregion uses the same supported spatial strata across all 11 year pairs during 2013--2024, with fixed stratum-area weights. Both datasets use the same eligible locations within each year pair, while locations may differ among pairs. Horizontal dashed lines indicate zero change.}
+\label{fig:s8-interannual}
+\ReviewFloatEnd
 \end{figure}
 
 \clearpage
@@ -88,19 +157,19 @@
 \scriptsize
 \setlength{\tabcolsep}{2.4pt}
 \renewcommand{\arraystretch}{1.12}
-\begin{longtable}{@{}c p{2.8cm} p{1.1cm} p{1.35cm} p{2.35cm} r r r p{2.25cm} r p{1.25cm} r p{1.95cm}@{}}
-\caption{Station metadata, source parsing, and final validation coverage. Heihe Site IDs 1--23 follow \textcite{liu2018heiheNetwork}; H1 and H2 denote the Guantao and Daxing sites in the Haihe basin. Candidate records use $K\geq0.65$, 10:30 local mean solar time $\pm30$ min, and at least eight valid MOD11A2-aligned eight-day bins; final coverage additionally applies the paired-IRT ground-reference criterion.}\label{tab:s1-stations}\\
+\begin{longtable}{@{}c p{2.8cm} p{1.1cm} p{1.35cm} p{2.35cm} r r r p{3.35cm} p{1.25cm} r p{1.95cm}@{}}
+\caption{Station metadata and ground-validation coverage. Heihe Site IDs 1--23 follow \textcite{liu2018heiheNetwork}; H1 and H2 denote the Guantao and Daxing sites in the Haihe basin. Candidate records use $K\geq0.65$, 10:30 local mean solar time $\pm30$ min, and at least eight valid MOD11A2-aligned eight-day bins; evaluated records additionally satisfy the paired-IRT ground-reference criterion. Observation durations are reproduced from source metadata; evaluated year ranges may contain gaps.}\label{tab:s1-stations}\\
 \toprule
-\shortstack{Site\\ID} & Station & Network & Reach & Landscape & Lon. & Lat. & Elev. & \shortstack{Duration\\reported} & \shortstack{Parsed\\XLSX} & \shortstack{Final\\years} & \shortstack{Site-\\years} & Status \\
+\shortstack{Site\\ID} & Station & Network & Reach & Landscape & Lon. & Lat. & Elev. & \shortstack{Duration\\reported} & \shortstack{Years\\evaluated} & \shortstack{Site-\\years} & Status \\
 \midrule
 \endfirsthead
-\multicolumn{13}{l}{\textit{Table S1 continued}}\\
+\multicolumn{12}{l}{\textit{Table S1 continued}}\\
 \toprule
-\shortstack{Site\\ID} & Station & Network & Reach & Landscape & Lon. & Lat. & Elev. & \shortstack{Duration\\reported} & \shortstack{Parsed\\XLSX} & \shortstack{Final\\years} & \shortstack{Site-\\years} & Status \\
+\shortstack{Site\\ID} & Station & Network & Reach & Landscape & Lon. & Lat. & Elev. & \shortstack{Duration\\reported} & \shortstack{Years\\evaluated} & \shortstack{Site-\\years} & Status \\
 \midrule
 \endhead
 \midrule
-\multicolumn{13}{r}{\textit{Continued on next page}}\\
+\multicolumn{12}{r}{\textit{Continued on next page}}\\
 \endfoot
 \bottomrule
 \endlastfoot
@@ -143,5 +212,9 @@ Station & \shortstack{Chinese\\name} & Year & Paired days & Median ($^{\circ}$C)
 \end{longtable}
 
 \clearpage
+\label{sec:si-interannual}
+\input{supplementary/regional_interannual.tex}
+\clearpage
+\label{sec:si-references}
 \printbibliography
 \end{document}

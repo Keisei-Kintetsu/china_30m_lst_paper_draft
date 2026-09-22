@@ -1,0 +1,19 @@
+\section{Usage Notes}
+
+The record represents annual composite thermal conditions during the leaf-on daytime period and supports seasonal thermal comparisons in urban, vegetated and agricultural landscapes. Each annual value is the pixelwise median of Terra eight-day daytime LST composites passing Mandatory QA screening and having nominal start dates within DOY 150--300. The standard sequence contains 19 candidate eight-day periods, with the final period potentially extending to DOY 304. The record does not represent full-year mean temperatures, nighttime conditions or individual extreme-heat events.
+
+The representation of regional interannual changes varies geographically. In the 2013--2024 Landsat 8 comparison, correlations between consecutive-year temperature changes were 0.870 in HSE, 0.465 in ANW and 0.399 in SWM. The standard-deviation ratios of these changes ranged from 0.349 to 0.826 across the six macroregions, indicating generally smaller year-to-year changes in \chinatherm{} in this comparison (Supplementary Fig.~S8 and Tables~S4--S5). Studies of long-term change can combine the record with regional observations and meteorological information to assess change magnitudes and their drivers.
+
+The 30 m spatial patterns in \chinatherm{} are inferred from fine-resolution optical, topographic and geographic predictors, while the regional low-frequency thermal background is constrained by kilometre-scale annual targets. Areas with high elevation, strong radiation, limited training support or rapid surface change may benefit from targeted evaluation using independent observations and regional reference data. Of the 23 ground-IRT sites, 21 are in the Heihe basin; these comparisons primarily characterize site-scale agreement in arid, alpine and oasis environments of northwestern China. Other climatic regions require additional long-term ground observations.
+
+\section{Data Availability}
+
+\chinatherm{} can be explored interactively at:
+\begin{center}
+\url{https://ee-liangerzheng377.projects.earthengine.app/view/chinatherm30-explorer}
+\end{center}
+The complete 25-year GeoTIFF record, English README and data dictionary are publicly available through ScienceDB\supercite{liang2026chinatherm30} at \href{https://doi.org/10.57760/sciencedb.00zzg}{10.57760/sciencedb.00zzg}.
+
+\section{Code Availability}
+
+The core production code for MODIS thermal-target preparation, random forest training and 30 m inference, coarse-grid aggregation and residual adjustment is publicly available on Zenodo\supercite{liang2026chinatherm30code} at \href{https://doi.org/10.5281/zenodo.22894495}{\nolinkurl{10.5281/zenodo.22894495}} under the MIT License. The archive includes a README, software dependencies and a synthetic end-to-end test. Prepared optical and topographic predictor tiles are required to run the workflow.
